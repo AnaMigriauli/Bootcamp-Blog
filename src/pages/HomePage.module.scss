@@ -1,0 +1,18 @@
+.home-page {
+  padding: 64px 76px 66px 76px;
+  background: var(--soft-lilac);
+
+  .hero-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .hero-title {
+      color: var(--charcoal);
+      font-size: 64px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 72px;
+    }
+  }
+}
