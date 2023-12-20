@@ -1,0 +1,27 @@
+.success-modal {
+  padding-top: 64px !important;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .success-title {
+    color: var(--charcoal);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+    margin: 16px 0 48px 0;
+  }
+  .success-btn {
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: var(--purple);
+    color: var(--white);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    border: none;
+    cursor: pointer;
+  }
+}

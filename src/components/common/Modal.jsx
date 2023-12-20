@@ -4,7 +4,7 @@ import closeIcon from "../../assets/photos/add.svg";
 const Modal = (props) => {
   return createPortal(
     <div>
-      <div className={styles.modal}>
+      <div className={`${styles.modal} ${props.successModal}`}>
         {props.children}
         <button className={styles["close-btn"]}>
           <img src={closeIcon} alt="close icon" />
