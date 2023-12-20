@@ -1,0 +1,15 @@
+.input-error {
+  border: 1.5px solid var(--bright-red) !important;
+  background: var(--pale-pink) !important;
+}
+.input-error-message {
+  display: flex;
+  gap: 8px;
+  .error-text {
+    color: var(--bright-red);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+  }
+}

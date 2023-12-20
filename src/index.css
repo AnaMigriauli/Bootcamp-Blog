@@ -5,8 +5,12 @@
 }
 :root {
   --white: #ffffff;
-  --purple: #5d37f3;
   --pale-purple: #e4e3eb;
   --soft-lilac: #f3f2fa;
+  --pale-blue: #f7f7ff;
+  --light-lavender: #f5f4f9;
+  --pale-pink: #faf2f3;
+  --purple: #5d37f3;
+  --bright-red: #ea1919;
   --charcoal: #1a1a1f;
 }

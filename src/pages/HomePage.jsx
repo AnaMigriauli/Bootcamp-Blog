@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import heroImg from "../assets/photos/Blog-1024x355 1.svg";
 import style from "./HomePage.module.scss";
+
 const HomePage = () => {
   const [categories, setCategories] = useState([]);
 
