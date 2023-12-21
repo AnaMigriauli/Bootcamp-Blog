@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import heroImg from "../assets/photos/Blog-1024x355 1.svg";
 import style from "./HomePage.module.scss";
+import useBlog from "../hooks/useBlog";
 
 const HomePage = () => {
-  const [categories, setCategories] = useState([]);
-
+  const { categories, setCategories } = useBlog();
   useEffect(() => {
     const token =
       "b22230c8af120a1eb792677da7fbb4565deca1ab57339c7b1e064c4fcb332e0d";

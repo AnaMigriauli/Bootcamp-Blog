@@ -8,21 +8,21 @@ const Input = ({
   type,
   onChange,
   errorMessage,
+  onKeyPress,
 }) => {
-  // const inputClass = errorMessage
-  //   ? ` ${inputStyle}${styles["input-error"]}`
-  //   : inputStyle;
+  const inputClass = errorMessage
+    ? ` ${inputStyle} ${styles["input-error"]}`
+    : inputStyle;
 
   return (
     <>
       <label className={labelStyle}>{lable}</label>
       <input
-        className={
-          errorMessage ? `${inputStyle} ${styles["input-error"]}` : inputStyle
-        }
+        className={inputClass}
         placeholder={placeholder}
         type={type}
         onChange={onChange}
+        onKeyPress={onKeyPress}
       ></input>
       {errorMessage && (
         <div className={styles["input-error-message"]}>
