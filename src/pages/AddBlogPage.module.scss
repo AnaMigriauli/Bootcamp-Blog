@@ -1,0 +1,40 @@
+.Add-blog-page {
+  margin: 33px 480px 189px 76px;
+  display: flex;
+  gap: 240px;
+  .add-blog-form {
+    .form-title {
+      color: var(--charcoal);
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 40px;
+      margin-bottom: 40px;
+    }
+    .label {
+      color: var(--charcoal);
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px;
+    }
+    .drop-file-input {
+      width: 600px;
+      height: 180px;
+      margin-top: 8px;
+      border-radius: 12px;
+      border: 1px dashed var(--steel-gray);
+      background: var(--pale-lavender);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .drop-file-icon {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 24px;
+      }
+    }
+  }
+}
