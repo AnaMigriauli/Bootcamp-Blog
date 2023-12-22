@@ -9,6 +9,15 @@ const Input = ({
   onChange,
   errorMessage,
   onKeyPress,
+  primaryValidation,
+  secondaryValidation,
+  tertiaryValidation,
+  validationStyle,
+  isTextarea,
+  isSelect,
+  primaryValidationStyle,
+  secondaryValidationStyles,
+  tertiaryValidationStyles,
 }) => {
   const inputClass = errorMessage
     ? ` ${inputStyle} ${styles["input-error"]}`
@@ -16,14 +25,44 @@ const Input = ({
 
   return (
     <>
-      <label className={labelStyle}>{lable}</label>
-      <input
-        className={inputClass}
-        placeholder={placeholder}
-        type={type}
-        onChange={onChange}
-        onKeyPress={onKeyPress}
-      ></input>
+      <div className={styles["input-wrapper"]}>
+        <label className={labelStyle}>{lable}</label>
+        {isTextarea ? (
+          <textarea className={styles.textarea} placeholder={placeholder} />
+        ) : isSelect ? (
+          <select className={inputStyle}>
+            <option>{placeholder}</option>
+          </select>
+        ) : (
+          <input
+            className={inputClass}
+            placeholder={placeholder}
+            type={type}
+            onChange={onChange}
+            onKeyPress={onKeyPress}
+          />
+        )}
+
+        <ul className={styles["validation-list"]}>
+          {primaryValidation && (
+            <li
+              className={
+                primaryValidationStyle
+                  ? primaryValidationStyle
+                  : validationStyle
+              }
+            >
+              {primaryValidation}
+            </li>
+          )}
+          {secondaryValidation && (
+            <li className={secondaryValidationStyles}>{secondaryValidation}</li>
+          )}
+          {tertiaryValidation && (
+            <li className={tertiaryValidationStyles}>{tertiaryValidation}</li>
+          )}
+        </ul>
+      </div>
       {errorMessage && (
         <div className={styles["input-error-message"]}>
           <img src={errorIcon} alt="error icon" />

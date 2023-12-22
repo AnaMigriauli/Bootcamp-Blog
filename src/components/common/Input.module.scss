@@ -1,3 +1,40 @@
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  .textarea {
+    width: 600px;
+    height: 124px;
+    border-radius: 12px;
+    border: 1px solid var(--pale-purple);
+    background: var(--pale-gray);
+    margin-top: 8px;
+    padding: 12px 16px;
+    outline: none;
+    resize: none;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .textarea::placeholder {
+    color: var(--steel-gray);
+    font-family: FiraGO;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+  }
+  .validation-list {
+    color: var(--steel-gray);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    margin-top: 8px;
+    // padding-left: 18px;
+  }
+}
 .input-error {
   border: 1.5px solid var(--bright-red) !important;
   background: var(--pale-pink) !important;
