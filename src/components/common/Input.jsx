@@ -1,6 +1,6 @@
 import styles from "./Input.module.scss";
 import errorIcon from "../../assets/photos/info-circle.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BlogCategories from "./BlogCategories";
 
 const Input = ({
@@ -36,10 +36,6 @@ const Input = ({
   const [focused, setfocused] = useState(false);
   const [change, setChange] = useState(false);
 
-  // useEffect(() => {
-  //   setInputValue(value);
-  // }, [value]);
-
   const inputChangeHandler = (e) => {
     setChange(true);
     setInputValue(e.target.value);
@@ -70,7 +66,7 @@ const Input = ({
   };
 
   const selectChangeHandler = (e) => {
-    const values = e.map((option) => option.value);
+    const values = e.map((option) => option.id);
     console.log(values);
     onChange(values);
   };
@@ -92,7 +88,6 @@ const Input = ({
             className={`${inputStyle} ${styles["categories-list"]}`}
             isSelect={isSelect}
             onChange={selectChangeHandler}
-            // inputStyle={inputStyle}
           />
         ) : (
           <input

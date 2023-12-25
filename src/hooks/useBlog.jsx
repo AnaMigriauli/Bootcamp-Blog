@@ -7,6 +7,7 @@ const actionTypes = {
   SET_CATEGORIES: "SET_CATEGORIES",
   SET_IS_LOGIN_MODAL_OPEN: "SET_IS_LOGIN_MODAL_OPEN",
   SET_CLOSE_SUCCESS_MODAL: "SET_CLOSE_SUCCESS_MODAL",
+  SET_ADD_BLOG_SUCCESS: "SET_ADD_BLOG_SUCCESS",
 };
 
 const reducer = (state, action) => {
@@ -41,6 +42,11 @@ const reducer = (state, action) => {
         ...state,
         closeSuccessModal: action.payload,
       };
+    case actionTypes.SET_ADD_BLOG_SUCCESS:
+      return {
+        ...state,
+        addBlogSuccess: action.payload,
+      };
     default:
       return state;
   }
@@ -52,6 +58,7 @@ const useBlog = () => {
     email: "",
     emailError: "",
     loginSuccess: false,
+    addBlogSuccess: false,
     isLoginModalOpen: false,
     closeSuccessModal: false,
   }));
@@ -66,7 +73,9 @@ const useBlog = () => {
   const setLoginSuccess = (loginSuccess) => {
     dispatch({ type: "SET_LOGIN_SUCCESS", payload: loginSuccess });
   };
-
+  const setAddBlogSuccess = (addBlogSuccess) => {
+    dispatch({ type: "SET_ADD_BLOG_SUCCESS", payload: addBlogSuccess });
+  };
   const setCategories = (categories) => {
     dispatch({ type: "SET_CATEGORIES", payload: categories });
   };
@@ -85,6 +94,7 @@ const useBlog = () => {
     setCategories,
     setIsLoginModalOpen,
     setCloseSuccessModal,
+    setAddBlogSuccess,
   };
 };
 export default useBlog;

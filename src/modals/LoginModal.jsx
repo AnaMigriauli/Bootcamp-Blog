@@ -5,7 +5,7 @@ import styles from "./LoginModal.module.scss";
 // import { useState } from "react";
 import LoginSuccessModal from "./LoginSuccessModal";
 import useBlog from "../hooks/useBlog";
-const LoginModal = () => {
+const LoginModal = ({ setIsSuccess }) => {
   const {
     email,
     setEmail,
@@ -15,7 +15,6 @@ const LoginModal = () => {
     loginSuccess,
   } = useBlog();
 
-  console.log(loginSuccess);
   const validateEmail = async () => {
     // const emailRegex = /@redberry.ge\s*$/;
     // if (!emailRegex.test(email)) {
@@ -79,7 +78,7 @@ const LoginModal = () => {
           </Button>
         </Modal>
       )}
-      {loginSuccess && <LoginSuccessModal />}
+      {loginSuccess && <LoginSuccessModal setIsSuccess={setIsSuccess} />}
     </>
   );
 };

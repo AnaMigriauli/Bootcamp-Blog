@@ -3,24 +3,35 @@ import logo from "../../assets/photos/LOGO-02 3.svg";
 import Button from "../common/Button";
 import LoginModal from "../../modals/LoginModal";
 import useBlog from "../../hooks/useBlog";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-  const { isLoginModalOpen, setIsLoginModalOpen, closeSuccessModal } =
-    useBlog();
+  const navigate = useNavigate();
+  const { isLoginModalOpen, setIsLoginModalOpen } = useBlog();
+  const [isSuccess, setIsSuccess] = useState(false);
   const openModalHandler = () => {
     setIsLoginModalOpen(true);
   };
 
-  console.log(closeSuccessModal);
+  const openAddBlogHandler = () => {
+    navigate("/add-blog");
+  };
   return (
     <>
       <div className={style.header}>
         <img className={style.logo} src={logo} alt="logo" />
-        <Button onClick={openModalHandler} className={style["header-btn"]}>
-          {!closeSuccessModal ? " დაამატე ბლოგი" : " შესვლა"}
-        </Button>
+        {!isSuccess ? (
+          <Button onClick={openModalHandler} className={style["header-btn"]}>
+            შესვლა
+          </Button>
+        ) : (
+          <Button onClick={openAddBlogHandler} className={style["header-btn"]}>
+            დაამატე ბლოგი
+          </Button>
+        )}
       </div>
-      {isLoginModalOpen && <LoginModal />}
+      {isLoginModalOpen && <LoginModal setIsSuccess={setIsSuccess} />}
     </>
   );
 };

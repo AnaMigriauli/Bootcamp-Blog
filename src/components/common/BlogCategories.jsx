@@ -1,7 +1,7 @@
 import useBlog from "../../hooks/useBlog";
 import styles from "./BlogCategories.module.scss";
 import Select from "react-select";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 const BlogCategories = ({
   isSelect,
   value,
@@ -43,37 +43,17 @@ const BlogCategories = ({
       padding: 20,
     }),
   };
-  console.log(onChange);
-  console.log(categories);
+
   if (isSelect) {
     return (
       <Select
         isMulti
-        // value={value}
         placeholder="აირჩიეთ კატეგორია"
         onChange={onChange}
         options={categories}
         className={className}
         styles={customStyles}
       />
-      //   <select className={className} value={value} onChange={onChange}>
-      //     <option value="" disabled selected={!value}>
-      //       აირჩიეთ კატეგორია
-      //     </option>
-      //     {categories?.map((category) => (
-      //       <option
-      //         key={category.id}
-      //         value={category.id}
-      //         className={styles.categorie}
-      //         style={{
-      //           background: category.background_color,
-      //           color: category.text_color,
-      //         }}
-      //       >
-      //         {category.title}
-      //       </option>
-      //     ))}
-      //   </select>
     );
   } else {
     return (
@@ -92,7 +72,7 @@ const BlogCategories = ({
                 color: categorie.text_color,
               }}
             >
-              {categorie.title}
+              {categorie.label}
             </button>
           </li>;
         })}

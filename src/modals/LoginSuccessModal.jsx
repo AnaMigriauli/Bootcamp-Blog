@@ -3,12 +3,15 @@ import successIcon from "../assets/photos/tick-circle.svg";
 import Button from "../components/common/Button";
 import styles from "./LoginSuccessModal.module.scss";
 import useBlog from "../hooks/useBlog";
-const LoginSuccessModal = () => {
+const LoginSuccessModal = ({ setIsSuccess }) => {
   const { closeSuccessModal, setCloseSuccessModal } = useBlog();
   const closeModalandler = () => {
     setCloseSuccessModal(true);
   };
-
+  if (closeSuccessModal) {
+    setIsSuccess(true);
+  }
+  console.log(closeSuccessModal);
   return (
     !closeSuccessModal && (
       <Modal successModal={styles["success-modal"]}>

@@ -1,15 +1,19 @@
 import "./App.css";
-import Header from "./components/layout/Header";
-// import HomePage from "./pages/HomePage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
 import AddBlogPage from "./pages/AddBlogPage";
+import Layout from "./components/layout/Layout";
 
 function App() {
   return (
-    <>
-      <Header />
-      {/* <HomePage /> */}
-      <AddBlogPage />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="add-blog" element={<AddBlogPage />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 
