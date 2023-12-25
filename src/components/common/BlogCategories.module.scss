@@ -1,0 +1,40 @@
+.category-list {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.category {
+  list-style: none;
+  display: flex;
+  align-items: flex-start;
+  padding: 8px 16px;
+  gap: 10px;
+  border-radius: 30px;
+  background: rgba(255, 184, 47, 0.08);
+  .category-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+}
+
+.customSelectWrapper {
+  /* Styles for the custom select wrapper */
+}
+
+.previewOptions {
+  display: flex; /* Display options inline */
+  overflow-x: auto; /* Allows horizontal scrolling if needed */
+  white-space: nowrap; /* Prevents options from wrapping */
+  cursor: pointer;
+}
+
+.previewOption {
+  display: inline-block; /* Display options inline */
+  margin-right: 10px; /* Space between options */
+  /* Additional styling for options */
+}
+
+/* Add styling for when dropdown is open if needed */

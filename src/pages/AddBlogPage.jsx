@@ -1,18 +1,40 @@
 import exitArrowIcon from "../assets/photos/Arrow.svg";
 import Input from "../components/common/Input";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import folderAddIcon from "../assets/photos/folder-add.svg";
 import styles from "./AddBlogPage.module.scss";
 import { useDropzone } from "react-dropzone";
 import Button from "../components/common/Button";
 import imgIcon from "../assets/photos/gallery.svg";
 import closeIcon from "../assets/photos/add.svg";
+import useBlog from "../hooks/useBlog";
 const AddBlogPage = () => {
+  const { categories, setCategories } = useBlog();
+
   const [file, setFile] = useState(null);
-  const [authorIput, setAuthorInput] = useState("");
-  const [isMinLength, setIsMinLength] = useState(false);
-  const [isTwoWords, setIsTwoWords] = useState(false);
-  const [isGeorgianCharsOnly, setIsGeorgianCharsOnly] = useState(false);
+  const [authorInput, setAuthorInput] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [date, setData] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState([]);
+  const [email, setEmail] = useState("");
+  // const [newBlog, setNewBlog] = useState();
+
+  // useEffect(() => {
+  //   const token =
+  //     "b22230c8af120a1eb792677da7fbb4565deca1ab57339c7b1e064c4fcb332e0d";
+  //   const response = fetch("https://api.blog.redberryinternship.ge/api/blogs", {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   });
+  //   const data = response.json();
+  //   console.log(data);
+  // }, []);
+
+  // console.log(newBlog);
 
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles[0]);
@@ -24,18 +46,89 @@ const AddBlogPage = () => {
     accept: "image/*",
   });
 
-  const inputChangeHandler = (e) => {
-    const value = e.target.value;
-    setAuthorInput(value);
-
-    setIsMinLength(value.length >= 4);
-    setIsTwoWords(value.trim().split(" ").length >= 2);
-    const georgianCharsRegex = /^[ა-ჰ]+$/;
-    setIsGeorgianCharsOnly(georgianCharsRegex.test(value));
+  let validationSchema = {
+    authorInput: {
+      rule: /^[ა-ჰ\s]+$/,
+      minLength: 4,
+      required: true,
+    },
+    title: {
+      minLength: 2,
+    },
   };
 
-  const ValidationStyle = (isValid) => {
-    return isValid ? styles.valid : styles["is-not-valid"];
+  const isValidInput = (name, value) => {
+    let input = validationSchema[name];
+    if (!value || (typeof value === "string" && !value.trim())) {
+      return !input.required;
+    }
+
+    if (name == "title") {
+      return value.length >= input.minLength;
+    }
+  };
+
+  const stepIsFilled = () => {
+    let filled;
+    let inputs = ["title"];
+    let helper = [];
+
+    inputs = inputs.filter((input) => input !== "");
+    inputs.forEach((input) => helper.push(isValidInput(input, title)));
+
+    // filled =
+  };
+
+  const publishBlog = () => {
+    let isValidStep = stepIsFilled();
+  };
+
+  let submitMethod;
+
+  submitMethod = publishBlog();
+
+  console.log(selectedCategory);
+
+  const fetchBlogDataHandler = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("author", authorInput);
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("publish_date", date);
+    formData.append("categories", selectedCategory);
+    formData.append("email", email);
+
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
+    const token =
+      "b22230c8af120a1eb792677da7fbb4565deca1ab57339c7b1e064c4fcb332e0d";
+
+    try {
+      const response = await fetch(
+        "https://api.blog.redberryinternship.ge/api/blogs",
+        {
+          method: "POST",
+          headers: {
+            // "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      console.log(response);
+
+      // Handle successful response
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
   };
 
   return (
@@ -43,7 +136,7 @@ const AddBlogPage = () => {
       <button className={styles["exit-btn"]}>
         <img src={exitArrowIcon} alt="exit arrow icon" />
       </button>
-      <form className={styles["add-blog-form"]}>
+      <form className={styles["add-blog-form"]} onSubmit={fetchBlogDataHandler}>
         <h3 className={styles["form-title"]}>ბლოგის დამატება</h3>
         <label className={styles["label"]}>ატვირთეთ ფოტო</label>
         <div
@@ -81,61 +174,86 @@ const AddBlogPage = () => {
           <Input
             type="text"
             lable="ავტორი *"
-            value={authorIput}
+            value={authorInput}
             placeholder="შეიყვნეთ ავტორი"
             labelStyle={styles["label"]}
             inputStyle={styles["common-input-style"]}
             primaryValidation="მინიმუმ 4 სიმბოლო"
             secondaryValidation="მინიმუმ ორი სიტყვა"
             tertiaryValidation="მხოლოდ ქართული სიმბოლოები"
-            primaryValidationStyle={ValidationStyle(isMinLength)}
-            secondaryValidationStyles={ValidationStyle(isTwoWords)}
-            tertiaryValidationStyles={ValidationStyle(isGeorgianCharsOnly)}
-            onChange={inputChangeHandler}
+            onChange={(e) => setAuthorInput(e.target.value)}
+            // primaryValidationStyle={styles[getTextStyle(isMinLength)]}
+            // secondaryValidationStyles={styles[getTextStyle(isTwoWords)]}
+            // tertiaryValidationStyles={styles[getTextStyle(isGeorgianChars)]}
+            // onChange={onChange}
+            // onBlur={onBlur}
+            // onFocus={onFocus}
           />
           <Input
             type="text"
             lable="სათური *"
+            value={title}
             placeholder="შეიყვნეთ სათაური"
             labelStyle={styles["label"]}
             inputStyle={styles["common-input-style"]}
             primaryValidation="მინიმუმ 2 სიმბოლო"
-            validationStyle={styles["validation-text"]}
+            primaryValidationStyle={styles["validation-text"]}
+            onChange={(e) => setTitle(e.target.value)}
+            error={!isValidInput("title", title)}
           />
         </div>
         <Input
           isTextarea
           lable="აღწერა *"
+          value={description}
           placeholder="შეიყვნეთ აღწერა"
           labelStyle={styles["label"]}
           primaryValidation="მინიმუმ 2 სიმბოლო"
           validationStyle={styles["validation-text"]}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
         />
         <div className={styles["input-wrapper"]}>
           <Input
             type="date"
+            value={date}
             lable="გამოქვეყნების თარიღი *"
             placeholder="შეიყვნეთ ავტორი"
             labelStyle={styles["label"]}
             inputStyle={styles["common-input-style"]}
+            onChange={(e) => {
+              setData(e.target.value);
+            }}
           />
           <Input
             isSelect
+            // isMultiple
             lable="კატეგორია *"
-            placeholder="აირჩიეთ კატეგორია"
+            // value={selectedCategory}
             labelStyle={styles["label"]}
             inputStyle={styles["common-input-style"]}
+            onChange={(selectedCategories) =>
+              setSelectedCategory(selectedCategories)
+            }
+            options={categories}
           />
         </div>
         <Input
           type="email"
           lable="ელ-ფოსტა"
+          value={email}
           placeholder="Example@redberry.ge"
           labelStyle={styles["label"]}
           inputStyle={styles["common-input-style"]}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
         />
 
-        <Button className={styles["submit-btn"]}>გამოქვეყნება</Button>
+        <Button className={styles["submit-btn"]} type="submit">
+          გამოქვეყნება
+        </Button>
       </form>
     </div>
   );

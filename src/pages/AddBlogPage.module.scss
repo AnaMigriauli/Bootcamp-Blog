@@ -74,9 +74,9 @@
       margin-top: 8px;
       padding-left: 16px;
       border-radius: 12px;
-      border: 1px solid var(--pale-purple);
+      border: 1.5px solid var(--pale-purple);
       outline: none;
-      background: var(--pale-gray);
+      background: var(--pale-gray) !important;
     }
     .common-input-style:focus {
       border: 1.5px solid var(--purple) !important;
@@ -87,12 +87,6 @@
       margin: 24px auto 24px 0;
       .validation-text {
         list-style: none;
-      }
-      .valid {
-        color: var(--green);
-      }
-      .is-not-valid {
-        color: var(--bright-red);
       }
     }
     .submit-btn {

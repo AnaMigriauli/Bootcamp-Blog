@@ -16,27 +16,5 @@
   }
   .main-content {
     margin-top: 64px;
-    .categories-list {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 24px;
-
-      .categorie {
-        list-style: none;
-        display: flex;
-        align-items: flex-start;
-        padding: 8px 16px;
-        gap: 10px;
-        border-radius: 30px;
-        background: rgba(255, 184, 47, 0.08);
-        .categorie-btn {
-          border: none;
-          background: transparent;
-          cursor: pointer;
-        }
-      }
-    }
   }
 }
