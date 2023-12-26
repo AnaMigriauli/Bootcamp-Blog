@@ -107,7 +107,7 @@ const AddBlogPage = () => {
     if (response.status === 204) {
       setAddBlogSuccess(true);
     }
-    console.log(response);
+    // console.log(response);
     // Handle successful response
   };
 

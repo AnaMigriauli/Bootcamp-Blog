@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import heroImg from "../assets/photos/Blog-1024x355 1.svg";
 import styles from "./HomePage.module.scss";
 import useBlog from "../hooks/useBlog";
 import BlogCard from "../components/common/BlogCard";
 
 const HomePage = () => {
-  const { categories, setCategories } = useBlog();
+  const { categories, setCategories, requestApi } = useBlog();
+  const [blogList, setBlogList] = useState();
   useEffect(() => {
     const token =
       "b22230c8af120a1eb792677da7fbb4565deca1ab57339c7b1e064c4fcb332e0d";
@@ -30,6 +31,24 @@ const HomePage = () => {
       );
   }, []);
 
+  useEffect(() => {
+    const token =
+      "b22230c8af120a1eb792677da7fbb4565deca1ab57339c7b1e064c4fcb332e0d";
+    fetch("https://api.blog.redberryinternship.ge/api/blogs", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setBlogList(data.data));
+  }, [requestApi]);
+
+  if (!blogList || blogList.length === 0) {
+    return <div>Loading...</div>;
+  }
+  const restOfBlogPosts = blogList ? blogList.slice(4) : [];
   return (
     <div className={styles["home-page"]}>
       <section className={styles["hero-section"]}>
@@ -59,8 +78,10 @@ const HomePage = () => {
             ))}
           </ul>
         </nav>
-        <div>
-          <BlogCard />
+        <div className={styles["blogs-container"]}>
+          {restOfBlogPosts.map((blog) => (
+            <BlogCard key={blog.id} blogList={blog} />
+          ))}
         </div>
       </main>
     </div>

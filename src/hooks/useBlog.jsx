@@ -8,6 +8,7 @@ const actionTypes = {
   SET_IS_LOGIN_MODAL_OPEN: "SET_IS_LOGIN_MODAL_OPEN",
   SET_CLOSE_SUCCESS_MODAL: "SET_CLOSE_SUCCESS_MODAL",
   SET_ADD_BLOG_SUCCESS: "SET_ADD_BLOG_SUCCESS",
+  SET_REQUES_API: "SET_REQUES_API",
 };
 
 const reducer = (state, action) => {
@@ -47,6 +48,11 @@ const reducer = (state, action) => {
         ...state,
         addBlogSuccess: action.payload,
       };
+    case actionTypes.SET_REQUES_API:
+      return {
+        ...state,
+        requestApi: action.payload,
+      };
     default:
       return state;
   }
@@ -61,8 +67,9 @@ const useBlog = () => {
     addBlogSuccess: false,
     isLoginModalOpen: false,
     closeSuccessModal: false,
+    requestApi: false,
   }));
-
+  // const [requestApi,
   const setEmail = (email) => {
     dispatch({ type: "SET_EMAIL", payload: email });
   };
@@ -86,6 +93,9 @@ const useBlog = () => {
   const setCloseSuccessModal = (closeSuccessModal) => {
     dispatch({ type: "SET_CLOSE_SUCCESS_MODAL", payload: closeSuccessModal });
   };
+  const setRequestApi = (requestApi) => {
+    dispatch({ type: "SET_REQUES_API", payload: requestApi });
+  };
   return {
     ...state,
     setEmail,
@@ -95,6 +105,7 @@ const useBlog = () => {
     setIsLoginModalOpen,
     setCloseSuccessModal,
     setAddBlogSuccess,
+    setRequestApi,
   };
 };
 export default useBlog;
