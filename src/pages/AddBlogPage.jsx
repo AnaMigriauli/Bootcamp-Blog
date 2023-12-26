@@ -10,6 +10,7 @@ import closeIcon from "../assets/photos/add.svg";
 import useBlog from "../hooks/useBlog";
 import { useNavigate } from "react-router-dom";
 import AddBlogSuccessModal from "../modals/AddBlogSuccessModal";
+import { fetchBlogsData } from "../api/api";
 const AddBlogPage = () => {
   const { categories, setAddBlogSuccess, addBlogSuccess } = useBlog();
 
@@ -91,24 +92,17 @@ const AddBlogPage = () => {
     for (let [key, value] of formData.entries()) {
       console.log(key, value);
     }
-    const token =
-      "b22230c8af120a1eb792677da7fbb4565deca1ab57339c7b1e064c4fcb332e0d";
 
-    const response = await fetch(
-      "https://api.blog.redberryinternship.ge/api/blogs",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
+    try {
+      const response = await fetchBlogsData(formData);
+      console.log(response);
+
+      if (response.status === 204) {
+        setAddBlogSuccess(true);
       }
-    );
-    if (response.status === 204) {
-      setAddBlogSuccess(true);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
     }
-    // console.log(response);
-    // Handle successful response
   };
 
   useEffect(() => {

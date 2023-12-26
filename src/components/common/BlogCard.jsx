@@ -2,14 +2,9 @@ import arrow from "../../assets/photos/Arrow-small.svg";
 import styles from "./BlogCard.module.scss";
 import { Link } from "react-router-dom";
 const BlogCard = ({ blogList }) => {
-  // if (!blogList || blogList.length === 0) {
-  //   return <div>Loading...</div>;
-  // }
-
   const { image, author, publish_date, title, categories, description, id } =
     blogList;
 
-  console.log(blogList);
   return (
     <div className={styles["blog-card"]}>
       <img className={styles["blog-card-image"]} src={image} alt="image" />

@@ -1,20 +1,25 @@
 import { useParams } from "react-router-dom";
+import { fetchBlogId } from "../api/api";
+import { useEffect } from "react";
 const BlogPage = () => {
   const { blogId } = useParams();
 
-  console.log(blogId);
+  // if (!blogList || blogList.length === 0) {
+  //   return <div>Loading...</div>;
+  // }
 
-  const token =
-    "b22230c8af120a1eb792677da7fbb4565deca1ab57339c7b1e064c4fcb332e0d";
-  fetch(`https://api.blog.redberryinternship.ge/api/blogs/${blogId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => console.log(data));
+  useEffect(() => {
+    const fetchBlogData = async () => {
+      try {
+        const data = await fetchBlogId(blogId);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching blog data:", error);
+      }
+    };
+
+    fetchBlogData();
+  }, [blogId]);
 
   return <p>ana</p>;
 };

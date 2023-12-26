@@ -20,6 +20,7 @@
   --bright-red: #ea1919;
   --green: #14d81c;
   --charcoal: #1a1a1f;
+  --black: #000;
 }
 .no-scroll {
   overflow: hidden;
