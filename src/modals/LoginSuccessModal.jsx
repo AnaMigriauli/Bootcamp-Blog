@@ -11,7 +11,7 @@ const LoginSuccessModal = ({ setIsSuccess }) => {
   if (closeSuccessModal) {
     setIsSuccess(true);
   }
-  // console.log(closeSuccessModal);
+
   return (
     !closeSuccessModal && (
       <Modal successModal={styles["success-modal"]}>

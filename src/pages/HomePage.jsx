@@ -5,11 +5,25 @@ import { useBlog } from "../hooks/BlogContext";
 import BlogCard from "../components/common/BlogCard";
 import { fetchCategories, fetchBlogs } from "../api/api";
 
+const getSelectedCategoriesFromStorage = () => {
+  const savedCategoties = localStorage.getItem("selectedCategories");
+  return savedCategoties ? JSON.parse(savedCategoties) : [];
+};
+
 const HomePage = () => {
   const { categories, setCategories, requestApi, blogList, setBlogList } =
     useBlog();
 
-  const [selectedCategoryIds, setSelectedCategoryIds] = useState([]);
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState(
+    getSelectedCategoriesFromStorage
+  );
+
+  useEffect(() => {
+    localStorage.setItem(
+      "selectedCategories",
+      JSON.stringify(selectedCategoryIds)
+    );
+  }, [selectedCategoryIds]);
 
   useEffect(() => {
     fetchCategories()
@@ -34,8 +48,6 @@ const HomePage = () => {
     return <div>Loading...</div>;
   }
   const restOfBlogPosts = blogList ? blogList.slice(4) : [];
-
-  // console.log(blogList);
 
   let filteredPosts = restOfBlogPosts.filter((blog) =>
     selectedCategoryIds.some((selectedId) =>

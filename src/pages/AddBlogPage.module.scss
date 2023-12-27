@@ -61,11 +61,19 @@
       border: none;
       padding: 16px;
       display: flex;
+      border-radius: 12px;
+      background: var(--whispering-blue);
       flex-direction: row;
       justify-content: space-between;
       background: var(--whispering-blue);
-      .input-close-icon {
+      .input-close-btn {
         cursor: pointer;
+        border: none;
+        background: transparent;
+        &:hover {
+          background: var(--light-blue);
+          border-radius: 30px;
+        }
       }
     }
     .common-input-style {

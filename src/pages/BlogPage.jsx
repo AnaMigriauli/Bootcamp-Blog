@@ -33,18 +33,19 @@ const BlogPage = () => {
   if (!blog || blog.length === 0) {
     return <div>Loading...</div>;
   }
-
-  const exitHandler = () => {
-    navigate("/");
-  };
+  //Filter
   const restOfBlogPosts = blogList ? blogList.slice(4) : [];
   const filteredRelatedArticles = restOfBlogPosts.filter((cat) =>
     cat.categories.some((cat) =>
       blog.categories.some((blog) => blog.id === cat.id)
     )
   );
-  //Slider
+  //Navigate
+  const exitHandler = () => {
+    navigate("/");
+  };
 
+  //Slider
   const itemsPerSlide = 3;
 
   const previousHandler = () => {
@@ -62,6 +63,8 @@ const BlogPage = () => {
     sliderIndex,
     sliderIndex + itemsPerSlide
   );
+
+  console.log(filteredRelatedArticles);
   return (
     <div className={styles.blog}>
       <div className={styles["blog-card-wrapper"]}>

@@ -13,20 +13,78 @@ import AddBlogSuccessModal from "../modals/AddBlogSuccessModal";
 import { fetchBlogsData } from "../api/api";
 const AddBlogPage = () => {
   const { categories, setAddBlogSuccess, addBlogSuccess } = useBlog();
+  const navigate = useNavigate();
 
-  const [file, setFile] = useState(null);
-  const [authorInput, setAuthorInput] = useState("");
+  const [file, setFile] = useState("");
+  const [fileName, setFileName] = useState("");
+  const [author, setAuthor] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setData] = useState("");
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
 
-  console.log(typeof selectedCategory);
+  console.log(selectedCategory);
 
+  useEffect(() => {
+    const savedData = localStorage.getItem("addBlogData");
+
+    if (savedData) {
+      const {
+        file,
+        fileName,
+        author,
+        title,
+        description,
+        date,
+        selectedCategory,
+        email,
+      } = JSON.parse(savedData);
+
+      if (file) setFile(file);
+      if (author) setAuthor(author);
+      if (title) setTitle(title);
+      if (description) setDescription(description);
+      if (date) setData(date);
+      if (selectedCategory) setSelectedCategory(selectedCategory);
+      if (email) setEmail(email);
+      if (fileName) setFileName(fileName);
+    }
+  }, []);
+
+  //Sava Data To LocalStorage
+  useEffect(() => {
+    const dataToSave = {
+      file,
+      fileName,
+      author,
+      title,
+      description,
+      date,
+      selectedCategory,
+      email,
+    };
+
+    localStorage.setItem("addBlogData", JSON.stringify(dataToSave));
+  }, [
+    file,
+    fileName,
+    author,
+    title,
+    description,
+    date,
+    selectedCategory,
+    email,
+  ]);
+
+  //Drag and drop
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles[0]);
+    setFileName(acceptedFiles[0].name);
+
+    // const currentData = JSON.parse(localStorage.getItem("addBlogData")) || {};
+    // currentData.fileName = acceptedFiles[0].name;
+    // localStorage.setItem("addBlogData", JSON.stringify(currentData));
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -76,22 +134,16 @@ const AddBlogPage = () => {
 
   submitMethod = publishBlog();
 
-  console.log(selectedCategory);
-
   const fetchBlogDataHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("image", file);
-    formData.append("author", authorInput);
+    formData.append("author", author);
     formData.append("title", title);
     formData.append("description", description);
     formData.append("publish_date", date);
     formData.append("categories", JSON.stringify(selectedCategory));
     formData.append("email", email);
-
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
 
     try {
       const response = await fetchBlogsData(formData);
@@ -118,9 +170,15 @@ const AddBlogPage = () => {
     };
   }, [addBlogSuccess]);
 
+  //Navigate
   const exitHandler = () => {
     navigate("/");
   };
+
+  const closeInputHandler = () => {
+    setFile("");
+  };
+  // console.log(file.name);
   return (
     <>
       <div className={styles["Add-blog-page"]}>
@@ -132,7 +190,7 @@ const AddBlogPage = () => {
           onSubmit={fetchBlogDataHandler}
         >
           <h3 className={styles["form-title"]}>ბლოგის დამატება</h3>
-          <label className={styles["label"]}>ატვირთეთ ფოტო</label>
+          <label className={styles["label"]}>ატვირთეთ ფოტო *</label>
           <div
             {...getRootProps()}
             className={
@@ -149,7 +207,7 @@ const AddBlogPage = () => {
             )}
             <input {...getInputProps()} />
             {file ? (
-              <p>{file.name}</p>
+              <p>{fileName}</p>
             ) : (
               <p>
                 ჩააგდეთ ფაილი აქ ან
@@ -157,25 +215,26 @@ const AddBlogPage = () => {
               </p>
             )}
             {file && (
-              <img
-                className={styles["input-close-icon"]}
-                src={closeIcon}
-                alt="close icon"
-              />
+              <button
+                onClick={closeInputHandler}
+                className={styles["input-close-btn"]}
+              >
+                <img src={closeIcon} alt="close icon" />
+              </button>
             )}
           </div>
           <div className={styles["input-wrapper"]}>
             <Input
               type="text"
               lable="ავტორი *"
-              value={authorInput}
+              value={author}
               placeholder="შეიყვნეთ ავტორი"
               labelStyle={styles["label"]}
               inputStyle={styles["common-input-style"]}
               primaryValidation="მინიმუმ 4 სიმბოლო"
               secondaryValidation="მინიმუმ ორი სიტყვა"
               tertiaryValidation="მხოლოდ ქართული სიმბოლოები"
-              onChange={(e) => setAuthorInput(e.target.value)}
+              onChange={(e) => setAuthor(e.target.value)}
             />
             <Input
               type="text"
@@ -216,13 +275,10 @@ const AddBlogPage = () => {
             />
             <Input
               isSelect
-              // isMultiple
               lable="კატეგორია *"
               labelStyle={styles["label"]}
               inputStyle={styles["common-input-style"]}
-              onChange={(selectedCategories) =>
-                setSelectedCategory(selectedCategories)
-              }
+              onChange={(value) => setSelectedCategory(value)}
               options={categories}
             />
           </div>

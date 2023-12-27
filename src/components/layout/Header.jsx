@@ -17,6 +17,7 @@ const Header = () => {
   const openAddBlogHandler = () => {
     navigate("/add-blog");
   };
+
   return (
     <>
       <div className={style.header}>
