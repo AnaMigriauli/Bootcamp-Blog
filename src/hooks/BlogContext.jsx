@@ -1,4 +1,6 @@
-import { useReducer } from "react";
+import { useReducer, createContext, useContext } from "react";
+
+const BlogContext = createContext();
 
 const actionTypes = {
   SET_EMAIL: "SET_EMAIL",
@@ -9,6 +11,7 @@ const actionTypes = {
   SET_CLOSE_SUCCESS_MODAL: "SET_CLOSE_SUCCESS_MODAL",
   SET_ADD_BLOG_SUCCESS: "SET_ADD_BLOG_SUCCESS",
   SET_REQUES_API: "SET_REQUES_API",
+  SET_BLOG_LIST: "SET_BLOG_LIST",
 };
 
 const reducer = (state, action) => {
@@ -53,12 +56,17 @@ const reducer = (state, action) => {
         ...state,
         requestApi: action.payload,
       };
+    case actionTypes.SET_BLOG_LIST:
+      return {
+        ...state,
+        blogList: action.payload,
+      };
     default:
       return state;
   }
 };
 
-const useBlog = () => {
+export const BlogProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, () => ({
     categories: [],
     email: "",
@@ -68,8 +76,9 @@ const useBlog = () => {
     isLoginModalOpen: false,
     closeSuccessModal: false,
     requestApi: false,
+    blogList: [],
   }));
-  // const [requestApi,
+
   const setEmail = (email) => {
     dispatch({ type: "SET_EMAIL", payload: email });
   };
@@ -96,16 +105,30 @@ const useBlog = () => {
   const setRequestApi = (requestApi) => {
     dispatch({ type: "SET_REQUES_API", payload: requestApi });
   };
-  return {
-    ...state,
-    setEmail,
-    setEmailError,
-    setLoginSuccess,
-    setCategories,
-    setIsLoginModalOpen,
-    setCloseSuccessModal,
-    setAddBlogSuccess,
-    setRequestApi,
+  const setBlogList = (blogList) => {
+    dispatch({ type: "SET_BLOG_LIST", payload: blogList });
   };
+
+  return (
+    <BlogContext.Provider
+      value={{
+        ...state,
+        setEmail,
+        setEmailError,
+        setLoginSuccess,
+        setCategories,
+        setIsLoginModalOpen,
+        setCloseSuccessModal,
+        setAddBlogSuccess,
+        setRequestApi,
+        setBlogList,
+      }}
+    >
+      {children}
+    </BlogContext.Provider>
+  );
 };
-export default useBlog;
+
+export const useBlog = () => {
+  return useContext(BlogContext);
+};

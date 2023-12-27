@@ -4,7 +4,7 @@ import Button from "../components/common/Button";
 import styles from "./LoginModal.module.scss";
 // import { useState } from "react";
 import LoginSuccessModal from "./LoginSuccessModal";
-import useBlog from "../hooks/useBlog";
+import { useBlog } from "../hooks/BlogContext";
 const LoginModal = ({ setIsSuccess }) => {
   const {
     email,

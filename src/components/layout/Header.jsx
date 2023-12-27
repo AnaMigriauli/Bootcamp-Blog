@@ -2,7 +2,7 @@ import style from "./Header.module.scss";
 import logo from "../../assets/photos/LOGO-02 3.svg";
 import Button from "../common/Button";
 import LoginModal from "../../modals/LoginModal";
-import useBlog from "../../hooks/useBlog";
+import { useBlog } from "../../hooks/BlogContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 

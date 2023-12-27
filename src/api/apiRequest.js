@@ -25,7 +25,7 @@ export const apiRequest = async (
     const response = await fetch(url, fetchOptions);
 
     if (response.ok) {
-      console.log(response);
+      // console.log(response);
     }
 
     if (!response.ok) {

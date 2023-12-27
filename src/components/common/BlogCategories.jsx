@@ -1,4 +1,4 @@
-import useBlog from "../../hooks/useBlog";
+import { useBlog } from "../../hooks/BlogContext";
 import styles from "./BlogCategories.module.scss";
 import Select from "react-select";
 import { useEffect } from "react";

@@ -4,18 +4,21 @@ import HomePage from "./pages/HomePage";
 import AddBlogPage from "./pages/AddBlogPage";
 import Layout from "./components/layout/Layout";
 import BlogPage from "./pages/BlogPage";
+import { BlogProvider } from "./hooks/BlogContext";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="/add-blog" element={<AddBlogPage />} />
-          <Route path="/blog/:blogId" element={<BlogPage />} />
-        </Route>
-      </Routes>
-    </Router>
+    <BlogProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route path="/add-blog" element={<AddBlogPage />} />
+            <Route path="/blog/:blogId" element={<BlogPage />} />
+          </Route>
+        </Routes>
+      </Router>
+    </BlogProvider>
   );
 }
 

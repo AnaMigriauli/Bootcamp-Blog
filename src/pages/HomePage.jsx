@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import heroImg from "../assets/photos/Blog-1024x355 1.svg";
 import styles from "./HomePage.module.scss";
-import useBlog from "../hooks/useBlog";
+import { useBlog } from "../hooks/BlogContext";
 import BlogCard from "../components/common/BlogCard";
 import { fetchCategories, fetchBlogs } from "../api/api";
 
 const HomePage = () => {
-  const { categories, setCategories, requestApi } = useBlog();
-  const [blogList, setBlogList] = useState();
+  const { categories, setCategories, requestApi, blogList, setBlogList } =
+    useBlog();
+
   const [selectedCategoryIds, setSelectedCategoryIds] = useState([]);
 
   useEffect(() => {
@@ -33,6 +34,8 @@ const HomePage = () => {
     return <div>Loading...</div>;
   }
   const restOfBlogPosts = blogList ? blogList.slice(4) : [];
+
+  // console.log(blogList);
 
   let filteredPosts = restOfBlogPosts.filter((blog) =>
     selectedCategoryIds.some((selectedId) =>
@@ -95,7 +98,25 @@ const HomePage = () => {
             ? filteredPosts
             : restOfBlogPosts
           ).map((blog) => (
-            <BlogCard key={blog.id} blogList={blog} />
+            <BlogCard
+              key={blog.id}
+              image={blog.image}
+              author={blog.author}
+              publish_date={blog.publish_date}
+              title={blog.title}
+              categories={blog.categories}
+              description={blog.description}
+              id={blog.id}
+              blogCard={styles["blog-card"]}
+              blogCardImage={styles["blog-card-image"]}
+              blogTextContent={styles["blog-text-content"]}
+              blogAuthor={styles["blog-author"]}
+              blogPublishDate={styles["blog-publish-date"]}
+              blogTitle={styles["blog-title"]}
+              blogCategories={styles["blog-categories"]}
+              categoryList={styles["category-list"]}
+              blogDescription={styles["blog-description"]}
+            />
           ))}
         </div>
       </main>

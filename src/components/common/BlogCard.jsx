@@ -1,27 +1,44 @@
 import arrow from "../../assets/photos/Arrow-small.svg";
 import styles from "./BlogCard.module.scss";
 import { Link } from "react-router-dom";
-const BlogCard = ({ blogList }) => {
-  const { image, author, publish_date, title, categories, description, id } =
-    blogList;
-
+const BlogCard = ({
+  image,
+  author,
+  publish_date,
+  title,
+  categories,
+  description,
+  email,
+  id,
+  blogCard,
+  blogCardImage,
+  blogTextContent,
+  blogAuthor,
+  blogDataEmail,
+  blogPublishDate,
+  blogEmail,
+  blogTitle,
+  blogCategories,
+  categoryList,
+  blogDescription,
+}) => {
   return (
-    <div className={styles["blog-card"]}>
-      <img className={styles["blog-card-image"]} src={image} alt="image" />
-      <div className={styles["blog-text-content"]}>
+    <div className={blogCard}>
+      <img className={blogCardImage} src={image} alt="image" />
+      <div className={blogTextContent}>
         <div>
-          <p className={styles["blog-author"]}>{author}</p>
-          <div>
-            <time className={styles["blog-publish-date"]}>{publish_date}</time>
-            {/* {email && <span>{email}</span>} */}
+          <p className={blogAuthor}>{author}</p>
+          <div className={blogDataEmail}>
+            <time className={blogPublishDate}>{publish_date}</time>
+            {email && <li>{email}</li>}
           </div>
         </div>
-        <h3 className={styles["blog-title"]}>{title}</h3>
+        <h3 className={blogTitle}>{title}</h3>
         {categories && (
-          <ul className={styles["blog-categories"]}>
+          <ul className={blogCategories}>
             {categories.map((category) => (
               <li
-                className={styles["category-list"]}
+                className={categoryList}
                 key={category.id}
                 style={{
                   color: category.text_color,
@@ -33,12 +50,14 @@ const BlogCard = ({ blogList }) => {
             ))}
           </ul>
         )}
-        <p className={styles["blog-description"]}>{description}</p>
-        <div>
-          <Link to={`/blog/${id}`} className={styles.link}>
-            სრულად ნახვა <img src={arrow} alt="view more" />
-          </Link>
-        </div>
+        <p className={blogDescription}>{description}</p>
+        {id && (
+          <div>
+            <Link to={`/blog/${id}`} className={styles.link}>
+              სრულად ნახვა <img src={arrow} alt="view more" />
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

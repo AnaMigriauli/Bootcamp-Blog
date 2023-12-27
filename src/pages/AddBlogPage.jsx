@@ -7,7 +7,7 @@ import { useDropzone } from "react-dropzone";
 import Button from "../components/common/Button";
 import imgIcon from "../assets/photos/gallery.svg";
 import closeIcon from "../assets/photos/add.svg";
-import useBlog from "../hooks/useBlog";
+import { useBlog } from "../hooks/BlogContext";
 import { useNavigate } from "react-router-dom";
 import AddBlogSuccessModal from "../modals/AddBlogSuccessModal";
 import { fetchBlogsData } from "../api/api";
@@ -125,7 +125,7 @@ const AddBlogPage = () => {
     <>
       <div className={styles["Add-blog-page"]}>
         <button onClick={exitHandler} className={styles["exit-btn"]}>
-          <img src={exitArrowIcon} alt="exit arrow icon" />
+          <img src={exitArrowIcon} alt="exit arrow button" />
         </button>
         <form
           className={styles["add-blog-form"]}

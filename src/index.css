@@ -16,11 +16,13 @@
   --lavender-mist: #f1effb;
   --steel-gray: #85858d;
   --navy-gray: #404049;
+  --lavender-gray: #d9d8e0;
   --purple: #5d37f3;
+  --deep-blue: #512be7;
   --bright-red: #ea1919;
   --green: #14d81c;
   --charcoal: #1a1a1f;
-  --black: #000;
+  --black: #000000;
 }
 .no-scroll {
   overflow: hidden;

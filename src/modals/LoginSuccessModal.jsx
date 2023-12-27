@@ -2,7 +2,7 @@ import Modal from "../components/common/modal";
 import successIcon from "../assets/photos/tick-circle.svg";
 import Button from "../components/common/Button";
 import styles from "./LoginSuccessModal.module.scss";
-import useBlog from "../hooks/useBlog";
+import { useBlog } from "../hooks/BlogContext";
 const LoginSuccessModal = ({ setIsSuccess }) => {
   const { closeSuccessModal, setCloseSuccessModal } = useBlog();
   const closeModalandler = () => {
