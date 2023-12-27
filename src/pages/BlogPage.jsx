@@ -15,6 +15,8 @@ const BlogPage = () => {
 
   const [blog, setBlog] = useState();
 
+  const [sliderIndex, setSliderIndex] = useState(0);
+
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
@@ -43,6 +45,23 @@ const BlogPage = () => {
   );
   //Slider
 
+  const itemsPerSlide = 3;
+
+  const previousHandler = () => {
+    setSliderIndex((prevIndex) => Math.max(0, prevIndex - 1));
+  };
+
+  const nextHandler = () => {
+    setSliderIndex((prevIndex) => {
+      const maxIndex = filteredRelatedArticles.length - itemsPerSlide;
+      return Math.min(maxIndex, prevIndex + 1);
+    });
+  };
+
+  const visibleCards = filteredRelatedArticles.slice(
+    sliderIndex,
+    sliderIndex + itemsPerSlide
+  );
   return (
     <div className={styles.blog}>
       <div className={styles["blog-card-wrapper"]}>
@@ -72,16 +91,19 @@ const BlogPage = () => {
       <div className={styles["related-articles-heading"]}>
         <h4 className={styles["related-posts-title"]}>მსგავსი სტატიები</h4>
         <div className={styles["navigation-controls"]}>
-          <button className={styles["previous-article-btn"]}>
+          <button
+            onClick={previousHandler}
+            className={styles["previous-article-btn"]}
+          >
             <img src={arrowLeft} alt="left" />
           </button>
-          <button className={styles["next-article-btn"]}>
+          <button onClick={nextHandler} className={styles["next-article-btn"]}>
             <img src={arrowRight} alt="right" />
           </button>
         </div>
       </div>
       <div className={styles["related-articles-container"]}>
-        {filteredRelatedArticles.map((blog) => (
+        {visibleCards.map((blog) => (
           <BlogCard
             key={blog.id}
             image={blog.image}
