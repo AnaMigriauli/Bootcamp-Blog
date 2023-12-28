@@ -154,6 +154,10 @@
             font-style: normal;
             font-weight: 500;
             line-height: 16px;
+            // text-align: center;
+            // white-space: nowrap;
+            // overflow: hidden;
+            // text-overflow: ellipsis;
           }
         }
         .related-blog-description {
@@ -171,4 +175,12 @@
       }
     }
   }
+}
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--purple);
+  margin-top: 50px;
+  font-size: 25px;
 }

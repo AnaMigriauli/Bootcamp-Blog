@@ -24,7 +24,7 @@ const AddBlogPage = () => {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [email, setEmail] = useState("");
 
-  console.log(selectedCategory);
+  // console.log(date);
 
   useEffect(() => {
     const savedData = localStorage.getItem("addBlogData");
@@ -155,6 +155,14 @@ const AddBlogPage = () => {
     } catch (error) {
       console.error("Error fetching categories:", error);
     }
+    setFile("");
+    setFileName("");
+    setAuthor("");
+    setTitle("");
+    setDescription("");
+    setData("");
+    setSelectedCategory([]);
+    setEmail("");
   };
 
   useEffect(() => {
@@ -178,7 +186,7 @@ const AddBlogPage = () => {
   const closeInputHandler = () => {
     setFile("");
   };
-  // console.log(file.name);
+
   return (
     <>
       <div className={styles["Add-blog-page"]}>

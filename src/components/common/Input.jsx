@@ -2,7 +2,7 @@ import styles from "./Input.module.scss";
 import errorIcon from "../../assets/photos/info-circle.svg";
 import { useState } from "react";
 import BlogCategories from "./BlogCategories";
-
+import PropTypes from "prop-types";
 const Input = ({
   lable,
   placeholder,
@@ -16,7 +16,7 @@ const Input = ({
   tertiaryValidation,
   isTextarea,
   isSelect,
-  primaryValidationStyle,
+  // primaryValidationStyle,
   secondaryValidationStyles,
   tertiaryValidationStyles,
   value,
@@ -24,14 +24,13 @@ const Input = ({
   onBlur,
   onFocus,
   error,
-  options,
+  // options,
 }) => {
   const inputClass = errorMessage
     ? ` ${inputStyle} ${styles["input-error"]}`
     : inputStyle;
 
   const [inputValue, setInputValue] = useState(value);
-  // const [errors, setErrors] = useState([]);
   const [touched, setTouched] = useState(false);
   const [focused, setfocused] = useState(false);
   const [change, setChange] = useState(false);
@@ -122,5 +121,29 @@ const Input = ({
       )}
     </>
   );
+};
+
+Input.propTypes = {
+  lable: PropTypes.string,
+  placeholder: PropTypes.string,
+  labelStyle: PropTypes.string,
+  inputStyle: PropTypes.string,
+  type: PropTypes.string,
+  errorMessage: PropTypes.string,
+  onKeyPress: PropTypes.func,
+  primaryValidation: PropTypes.string,
+  secondaryValidation: PropTypes.string,
+  tertiaryValidation: PropTypes.string,
+  isTextarea: PropTypes.bool,
+  isSelect: PropTypes.bool,
+  primaryValidationStyle: PropTypes.string,
+  secondaryValidationStyles: PropTypes.string,
+  tertiaryValidationStyles: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
+  error: PropTypes.string,
+  options: PropTypes.array,
 };
 export default Input;

@@ -1,13 +1,18 @@
 import { createPortal } from "react-dom";
 import styles from "./Modal.module.scss";
 import closeIcon from "../../assets/photos/add.svg";
+
 const Modal = (props) => {
   return createPortal(
     <div>
       <div className={`${styles.modal} ${props.successModal}`}>
         {props.children}
         <button className={styles["close-btn"]}>
-          <img src={closeIcon} alt="close icon" />
+          <img
+            onClick={props.closeModalHandler}
+            src={closeIcon}
+            alt="close icon"
+          />
         </button>
       </div>
       ,<div className={styles.overlay}></div>

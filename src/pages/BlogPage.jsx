@@ -30,16 +30,20 @@ const BlogPage = () => {
     fetchBlogData();
   }, [blogId]);
 
+  //Loader
   if (!blog || blog.length === 0) {
-    return <div>Loading...</div>;
+    return <div className={styles.loader}>Loading...</div>;
   }
   //Filter
-  const restOfBlogPosts = blogList ? blogList.slice(4) : [];
-  const filteredRelatedArticles = restOfBlogPosts.filter((cat) =>
-    cat.categories.some((cat) =>
-      blog.categories.some((blog) => blog.id === cat.id)
-    )
-  );
+
+  const filteredRelatedArticles =
+    blogList &&
+    blogList.filter((cat) =>
+      cat.categories.some((cat) =>
+        blog.categories.some((blog) => blog.id === cat.id)
+      )
+    );
+
   //Navigate
   const exitHandler = () => {
     navigate("/");

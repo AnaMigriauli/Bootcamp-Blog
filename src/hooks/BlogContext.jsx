@@ -12,6 +12,7 @@ const actionTypes = {
   SET_ADD_BLOG_SUCCESS: "SET_ADD_BLOG_SUCCESS",
   SET_REQUES_API: "SET_REQUES_API",
   SET_BLOG_LIST: "SET_BLOG_LIST",
+  SET_IS_SUCCESS: "SET_IS_SUCCESS",
 };
 
 const reducer = (state, action) => {
@@ -61,6 +62,11 @@ const reducer = (state, action) => {
         ...state,
         blogList: action.payload,
       };
+    case actionTypes.SET_IS_SUCCESS:
+      return {
+        ...state,
+        isSuccess: action.payload,
+      };
     default:
       return state;
   }
@@ -72,6 +78,7 @@ export const BlogProvider = ({ children }) => {
     email: "",
     emailError: "",
     loginSuccess: false,
+    isSuccess: false,
     addBlogSuccess: false,
     isLoginModalOpen: false,
     closeSuccessModal: false,
@@ -108,7 +115,9 @@ export const BlogProvider = ({ children }) => {
   const setBlogList = (blogList) => {
     dispatch({ type: "SET_BLOG_LIST", payload: blogList });
   };
-
+  const setIsSuccess = (isSuccess) => {
+    dispatch({ type: "SET_IS_SUCCESS", payload: isSuccess });
+  };
   return (
     <BlogContext.Provider
       value={{
@@ -122,6 +131,7 @@ export const BlogProvider = ({ children }) => {
         setAddBlogSuccess,
         setRequestApi,
         setBlogList,
+        setIsSuccess,
       }}
     >
       {children}

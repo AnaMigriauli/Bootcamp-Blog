@@ -2,10 +2,9 @@ import Modal from "../components/common/modal";
 import Input from "../components/common/Input";
 import Button from "../components/common/Button";
 import styles from "./LoginModal.module.scss";
-// import { useState } from "react";
 import LoginSuccessModal from "./LoginSuccessModal";
 import { useBlog } from "../hooks/BlogContext";
-const LoginModal = ({ setIsSuccess }) => {
+const LoginModal = () => {
   const {
     email,
     setEmail,
@@ -58,6 +57,7 @@ const LoginModal = ({ setIsSuccess }) => {
       loginHandler();
     }
   };
+
   return (
     <>
       {!loginSuccess && (
@@ -78,7 +78,7 @@ const LoginModal = ({ setIsSuccess }) => {
           </Button>
         </Modal>
       )}
-      {loginSuccess && <LoginSuccessModal setIsSuccess={setIsSuccess} />}
+      {loginSuccess && <LoginSuccessModal />}
     </>
   );
 };

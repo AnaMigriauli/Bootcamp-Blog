@@ -13,7 +13,7 @@ const getSelectedCategoriesFromStorage = () => {
 const HomePage = () => {
   const { categories, setCategories, requestApi, blogList, setBlogList } =
     useBlog();
-
+  const [blogs, setBlogs] = useState([]);
   const [selectedCategoryIds, setSelectedCategoryIds] = useState(
     getSelectedCategoriesFromStorage
   );
@@ -41,15 +41,57 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    fetchBlogs().then((data) => setBlogList(data.data));
+    fetchBlogs().then((data) => setBlogs(data.data));
   }, [requestApi]);
 
-  if (!blogList || blogList.length === 0) {
-    return <div>Loading...</div>;
-  }
-  const restOfBlogPosts = blogList ? blogList.slice(4) : [];
+  //მომავალში გამოქვეყნების ლოგიკა
+  useEffect(() => {
+    const filterBlogs = () => {
+      const currentDate = new Date();
+      const filtered = blogs.filter((blog) => {
+        const publishDate = new Date(blog.publish_date);
+        return publishDate <= currentDate;
+      });
+      setBlogList(filtered);
+    };
 
-  let filteredPosts = restOfBlogPosts.filter((blog) =>
+    const getNextPublishTime = () => {
+      const futurePublishDates = blogs
+        .map((blog) => new Date(blog.publish_date))
+        .filter((date) => date > new Date());
+
+      if (futurePublishDates.length === 0) {
+        return null;
+      }
+
+      return Math.min(...futurePublishDates);
+    };
+
+    filterBlogs();
+
+    const nextPublishTime = getNextPublishTime();
+    let timeoutId;
+
+    if (nextPublishTime) {
+      const delay = nextPublishTime - new Date();
+      timeoutId = setTimeout(() => {
+        filterBlogs();
+      }, delay);
+    }
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [blogs]);
+
+  //Loader
+  if (!blogList || blogList.length === 0) {
+    return <div className={styles.loader}>Loading...</div>;
+  }
+
+  let filteredPosts = blogList.filter((blog) =>
     selectedCategoryIds.some((selectedId) =>
       blog.categories.some((category) => category.id === selectedId)
     )
@@ -106,30 +148,29 @@ const HomePage = () => {
           </ul>
         </nav>
         <div className={styles["blogs-container"]}>
-          {(selectedCategoryIds.length > 0
-            ? filteredPosts
-            : restOfBlogPosts
-          ).map((blog) => (
-            <BlogCard
-              key={blog.id}
-              image={blog.image}
-              author={blog.author}
-              publish_date={blog.publish_date}
-              title={blog.title}
-              categories={blog.categories}
-              description={blog.description}
-              id={blog.id}
-              blogCard={styles["blog-card"]}
-              blogCardImage={styles["blog-card-image"]}
-              blogTextContent={styles["blog-text-content"]}
-              blogAuthor={styles["blog-author"]}
-              blogPublishDate={styles["blog-publish-date"]}
-              blogTitle={styles["blog-title"]}
-              blogCategories={styles["blog-categories"]}
-              categoryList={styles["category-list"]}
-              blogDescription={styles["blog-description"]}
-            />
-          ))}
+          {(selectedCategoryIds.length > 0 ? filteredPosts : blogList).map(
+            (blog) => (
+              <BlogCard
+                key={blog.id}
+                image={blog.image}
+                author={blog.author}
+                publish_date={blog.publish_date}
+                title={blog.title}
+                categories={blog.categories}
+                description={blog.description}
+                id={blog.id}
+                blogCard={styles["blog-card"]}
+                blogCardImage={styles["blog-card-image"]}
+                blogTextContent={styles["blog-text-content"]}
+                blogAuthor={styles["blog-author"]}
+                blogPublishDate={styles["blog-publish-date"]}
+                blogTitle={styles["blog-title"]}
+                blogCategories={styles["blog-categories"]}
+                categoryList={styles["category-list"]}
+                blogDescription={styles["blog-description"]}
+              />
+            )
+          )}
         </div>
       </main>
     </div>
