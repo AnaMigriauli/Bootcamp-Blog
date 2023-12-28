@@ -13,6 +13,7 @@ const actionTypes = {
   SET_REQUES_API: "SET_REQUES_API",
   SET_BLOG_LIST: "SET_BLOG_LIST",
   SET_IS_SUCCESS: "SET_IS_SUCCESS",
+  // SET_TOUCHED: "SET_TOUCHED",
 };
 
 const reducer = (state, action) => {
@@ -67,6 +68,11 @@ const reducer = (state, action) => {
         ...state,
         isSuccess: action.payload,
       };
+    // case actionTypes.SET_TOUCHED:
+    //   return {
+    //     ...state,
+    //     touched: action.payload,
+    //   };
     default:
       return state;
   }
@@ -84,6 +90,7 @@ export const BlogProvider = ({ children }) => {
     closeSuccessModal: false,
     requestApi: false,
     blogList: [],
+    // touched: false,
   }));
 
   const setEmail = (email) => {
@@ -118,6 +125,10 @@ export const BlogProvider = ({ children }) => {
   const setIsSuccess = (isSuccess) => {
     dispatch({ type: "SET_IS_SUCCESS", payload: isSuccess });
   };
+
+  // const setTouched = (touched) => {
+  //   dispatch({ type: "SET_TOUCHED", payload: touched });
+  // };
   return (
     <BlogContext.Provider
       value={{
@@ -132,6 +143,7 @@ export const BlogProvider = ({ children }) => {
         setRequestApi,
         setBlogList,
         setIsSuccess,
+        // setTouched,
       }}
     >
       {children}

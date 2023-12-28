@@ -55,9 +55,14 @@
         .blog-categories {
           display: flex;
           gap: 16px;
+
           .category-list {
             padding: 6px 10px;
             border-radius: 30px;
+            text-align: center;
+            white-space: nowrap;
+            // overflow: hidden;
+            // text-overflow: ellipsis;
           }
         }
         .blog-description {
@@ -147,6 +152,8 @@
           display: flex;
           gap: 16px;
           list-style: none;
+          overflow: hidden;
+          max-width: 100%;
           .related-category-list {
             padding: 6px 10px;
             border-radius: 30px;
@@ -154,10 +161,10 @@
             font-style: normal;
             font-weight: 500;
             line-height: 16px;
-            // text-align: center;
-            // white-space: nowrap;
+            flex: 0 calc(25% - 25px);
+            text-align: center;
+            white-space: nowrap;
             // overflow: hidden;
-            // text-overflow: ellipsis;
           }
         }
         .related-blog-description {

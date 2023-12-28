@@ -1,7 +1,7 @@
 .Add-blog-page {
-  margin: 33px 480px 189px 76px;
+  margin: 40px auto 110px 76px;
   display: flex;
-  gap: 240px;
+  gap: 21%;
   .exit-btn {
     width: 44px;
     height: 44px;
@@ -85,10 +85,19 @@
       border: 1.5px solid var(--pale-purple);
       outline: none;
       background: var(--pale-gray) !important;
+
+      &:focus {
+        border: 1.5px solid var(--purple) !important;
+      }
+
+      &[type="date"]::-webkit-calendar-picker-indicator {
+        margin-right: 10px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
     }
-    .common-input-style:focus {
-      border: 1.5px solid var(--purple) !important;
-    }
+
     .input-wrapper {
       display: flex;
       justify-content: space-between;
@@ -97,22 +106,26 @@
         list-style: none;
       }
     }
-    .submit-btn {
+    .submit-button-wrapper {
       display: flex;
-      width: 288px;
-      padding: 10px 20px;
-      margin-top: 40px;
-      justify-content: center;
-      align-items: center;
-      color: var(--white);
-      background: var(--purple);
-      border-radius: 8px;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 20px;
-      border: none;
-      cursor: pointer;
+      justify-content: end;
+      .submit-btn {
+        display: flex;
+        width: 288px;
+        padding: 10px 20px;
+        margin-top: 40px;
+        justify-content: center;
+        align-items: center;
+        color: var(--white);
+        // background: var(--pale-purple);
+        border-radius: 8px;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+        border: none;
+        cursor: pointer;
+      }
     }
   }
 }

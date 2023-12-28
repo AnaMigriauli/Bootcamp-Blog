@@ -1,5 +1,8 @@
+// const token =
+//   "b22230c8af120a1eb792677da7fbb4565deca1ab57339c7b1e064c4fcb332e0d";
+
 const token =
-  "b22230c8af120a1eb792677da7fbb4565deca1ab57339c7b1e064c4fcb332e0d";
+  "ee78ffadcf0f6bb516de34557a8794f10116616bc1d73922697cc9a2deb2dad6";
 
 export const apiRequest = async (
   url,

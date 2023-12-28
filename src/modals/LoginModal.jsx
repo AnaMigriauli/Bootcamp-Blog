@@ -3,7 +3,10 @@ import Input from "../components/common/Input";
 import Button from "../components/common/Button";
 import styles from "./LoginModal.module.scss";
 import LoginSuccessModal from "./LoginSuccessModal";
+import closeIcon from "../assets/photos/add.svg";
 import { useBlog } from "../hooks/BlogContext";
+import { useState } from "react";
+
 const LoginModal = () => {
   const {
     email,
@@ -12,8 +15,10 @@ const LoginModal = () => {
     setLoginSuccess,
     emailError,
     loginSuccess,
+    setIsLoginModalOpen,
+    setTouched,
   } = useBlog();
-
+  const [isModalOpen, setIsModalOpen] = useState(true);
   const validateEmail = async () => {
     // const emailRegex = /@redberry.ge\s*$/;
     // if (!emailRegex.test(email)) {
@@ -51,6 +56,7 @@ const LoginModal = () => {
 
   const loginHandler = () => {
     validateEmail();
+    // setTouched(false);
   };
   const keyPressHandler = (e) => {
     if (e.key === "Enter") {
@@ -58,10 +64,18 @@ const LoginModal = () => {
     }
   };
 
+  const modalCloseHandler = () => {
+    setIsModalOpen(false);
+    setIsLoginModalOpen(false);
+  };
+
   return (
     <>
-      {!loginSuccess && (
+      {isModalOpen && !loginSuccess && (
         <Modal>
+          <button onClick={modalCloseHandler} className={styles["close-btn"]}>
+            <img src={closeIcon} alt="close icon" />
+          </button>
           <h3 className={styles["modal-title"]}>შესვლა</h3>
           <Input
             type="email"

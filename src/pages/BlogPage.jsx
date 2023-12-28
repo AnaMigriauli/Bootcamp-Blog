@@ -63,12 +63,12 @@ const BlogPage = () => {
     });
   };
 
-  const visibleCards = filteredRelatedArticles.slice(
+  const visibleCards = filteredRelatedArticles?.slice(
     sliderIndex,
     sliderIndex + itemsPerSlide
   );
 
-  console.log(filteredRelatedArticles);
+  // console.log(filteredRelatedArticles);
   return (
     <div className={styles.blog}>
       <div className={styles["blog-card-wrapper"]}>
@@ -110,7 +110,7 @@ const BlogPage = () => {
         </div>
       </div>
       <div className={styles["related-articles-container"]}>
-        {visibleCards.map((blog) => (
+        {visibleCards?.map((blog) => (
           <BlogCard
             key={blog.id}
             image={blog.image}

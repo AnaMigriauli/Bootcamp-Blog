@@ -4,6 +4,7 @@ import styles from "./AddBlogSuccessModal.module.scss";
 import successIcon from "../assets/photos/tick-circle.svg";
 import { useNavigate } from "react-router-dom";
 import { useBlog } from "../hooks/BlogContext";
+import closeIcon from "../assets/photos/add.svg";
 const AddBlogSuccessModal = () => {
   const {
     setRequestApi,
@@ -24,8 +25,15 @@ const AddBlogSuccessModal = () => {
     setCloseSuccessModal(false);
     setAddBlogSuccess(false);
   };
+
+  const modalCloseHandler = () => {
+    setAddBlogSuccess(false);
+  };
   return (
     <Modal successModal={styles["success-modal"]}>
+      <button onClick={modalCloseHandler} className={styles["close-btn"]}>
+        <img src={closeIcon} alt="close icon" />
+      </button>
       <img
         className={styles["success-icon"]}
         src={successIcon}

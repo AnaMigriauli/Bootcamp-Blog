@@ -8,20 +8,6 @@
   border-radius: 12px;
   background: var(--white);
   z-index: 2500;
-
-  .close-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    height: 24px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-  }
-  .close-btn:hover {
-    border-radius: 30px;
-    background: var(--light-lavender);
-  }
 }
 .overlay {
   position: absolute;

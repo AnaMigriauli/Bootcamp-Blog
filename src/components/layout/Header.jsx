@@ -7,8 +7,7 @@ import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Header = () => {
-  const { isLoginModalOpen, setIsLoginModalOpen, isSuccess, setIsSuccess } =
-    useBlog();
+  const { isLoginModalOpen, setIsLoginModalOpen, isSuccess } = useBlog();
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;

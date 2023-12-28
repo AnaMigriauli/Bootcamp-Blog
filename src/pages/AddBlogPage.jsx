@@ -24,8 +24,6 @@ const AddBlogPage = () => {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [email, setEmail] = useState("");
 
-  // console.log(date);
-
   useEffect(() => {
     const savedData = localStorage.getItem("addBlogData");
 
@@ -94,40 +92,126 @@ const AddBlogPage = () => {
   });
 
   let validationSchema = {
-    authorInput: {
+    file: {
+      required: true,
+    },
+    author: {
       rule: /^[ა-ჰ\s]+$/,
       minLength: 4,
       required: true,
+      atLeastTwoWordsRule: (value) => value.trim().split(/\s+/).length >= 2,
     },
     title: {
       minLength: 2,
+      required: true,
+    },
+    description: {
+      minLength: 2,
+      required: true,
+    },
+    date: {
+      required: true,
+    },
+    selectedCategory: {
+      required: true,
+    },
+    email: {
+      rule: /^[a-zA-Z0-9._%+-]+@redberry\.ge$/,
+      required: true,
     },
   };
 
   const isValidInput = (name, value) => {
     let input = validationSchema[name];
+
+    if (name === "file") {
+      return !!value;
+    }
+
+    // if ((!value || value?.trim() === '')) {
     if (!value || (typeof value === "string" && !value.trim())) {
       return !input.required;
     }
 
-    if (name == "title") {
+    if (name === "selectedCategory") {
+      return value.length;
+    }
+
+    if (name === "title" || name === "description") {
       return value.length >= input.minLength;
     }
+
+    if (name === "date") {
+      return value && true;
+    }
+
+    if (name === "email") {
+      return validationSchema.email.rule.test(value);
+    }
+
+    // Define the validation rules
+    const minFour = value.length >= input.minLength;
+    const minTwoWords = value.trim().split(/\s+/).length >= 2;
+    const onlyGeorgian = validationSchema.author.rule.test(value);
+
+    // Aggregate validations
+    const validations = {
+      minFour,
+      minTwoWords,
+      onlyGeorgian,
+    };
+
+    const isValid = Object.values(validations).every(Boolean);
+    return { isValid, validations };
+
+    // const validations = {
+    //   minFour: value.length >= input.minLength,
+    //   minTwoWords: input.atLeastTwoWordsRule(value),
+    //   onlyGeorgian: input.rule.test(value)
+    // };
   };
 
+  const authorValidation = isValidInput("author", author);
+
   const stepIsFilled = () => {
+    const variablesMapping = {
+      file,
+      title,
+      author,
+      description,
+      date,
+      selectedCategory,
+      email,
+    };
+
     let filled;
-    let inputs = ["title"];
+    let inputs = [
+      "file",
+      "title",
+      "author",
+      "description",
+      "date",
+      "selectedCategory",
+      "email",
+    ];
     let helper = [];
 
     inputs = inputs.filter((input) => input !== "");
-    inputs.forEach((input) => helper.push(isValidInput(input, title)));
+    inputs.forEach((input) => {
+      if (variablesMapping[input] !== undefined) {
+        if (typeof isValidInput(input, variablesMapping[input]) === "object") {
+          helper.push(isValidInput(input, variablesMapping[input]).isValid);
+        }
+        helper.push(isValidInput(input, variablesMapping[input]));
+      }
+    });
 
-    // filled =
+    filled = helper.every((x) => x && true);
+    return filled;
   };
 
   const publishBlog = () => {
-    let isValidStep = stepIsFilled();
+    stepIsFilled();
   };
 
   let submitMethod;
@@ -147,7 +231,6 @@ const AddBlogPage = () => {
 
     try {
       const response = await fetchBlogsData(formData);
-      console.log(response);
 
       if (response.status === 204) {
         setAddBlogSuccess(true);
@@ -163,6 +246,7 @@ const AddBlogPage = () => {
     setData("");
     setSelectedCategory([]);
     setEmail("");
+    // setTouched(false);
   };
 
   useEffect(() => {
@@ -242,6 +326,9 @@ const AddBlogPage = () => {
               primaryValidation="მინიმუმ 4 სიმბოლო"
               secondaryValidation="მინიმუმ ორი სიტყვა"
               tertiaryValidation="მხოლოდ ქართული სიმბოლოები"
+              error={!authorValidation?.validations?.minFour}
+              errorSecondary={!authorValidation?.validations?.minTwoWords}
+              errorTertiary={!authorValidation?.validations?.onlyGeorgian}
               onChange={(e) => setAuthor(e.target.value)}
             />
             <Input
@@ -265,6 +352,7 @@ const AddBlogPage = () => {
             labelStyle={styles["label"]}
             primaryValidation="მინიმუმ 2 სიმბოლო"
             validationStyle={styles["validation-text"]}
+            error={!isValidInput("description", description)}
             onChange={(e) => {
               setDescription(e.target.value);
             }}
@@ -277,6 +365,7 @@ const AddBlogPage = () => {
               placeholder="შეიყვნეთ ავტორი"
               labelStyle={styles["label"]}
               inputStyle={styles["common-input-style"]}
+              error={!isValidInput("date", date)}
               onChange={(e) => {
                 setData(e.target.value);
               }}
@@ -288,6 +377,7 @@ const AddBlogPage = () => {
               inputStyle={styles["common-input-style"]}
               onChange={(value) => setSelectedCategory(value)}
               options={categories}
+              error={!isValidInput("selectedCategory", selectedCategory)}
             />
           </div>
           <Input
@@ -295,16 +385,26 @@ const AddBlogPage = () => {
             lable="ელ-ფოსტა"
             value={email}
             placeholder="Example@redberry.ge"
+            mailError={
+              !isValidInput("email", email) &&
+              "მეილი უნდა მთავრდებოდეს @redberry.ge-ით"
+            }
             labelStyle={styles["label"]}
             inputStyle={styles["common-input-style"]}
+            error={!isValidInput("email", email)}
             onChange={(e) => {
               setEmail(e.target.value);
             }}
           />
-
-          <Button className={styles["submit-btn"]} type="submit">
-            გამოქვეყნება
-          </Button>
+          <div className={styles["submit-button-wrapper"]}>
+            <Button
+              disabled={stepIsFilled()}
+              className={styles["submit-btn"]}
+              type="submit"
+            >
+              გამოქვეყნება
+            </Button>
+          </div>
         </form>
       </div>
       {addBlogSuccess && <AddBlogSuccessModal />}

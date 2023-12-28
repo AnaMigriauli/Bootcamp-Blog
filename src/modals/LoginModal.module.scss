@@ -1,3 +1,16 @@
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+.close-btn:hover {
+  border-radius: 30px;
+  background: var(--light-lavender);
+}
 .modal-title {
   text-align: center;
   color: var(--charcoal);
@@ -29,7 +42,7 @@
 }
 .modal-btn {
   width: 100%;
-  background: var(--purple);
+  background: var(--purple) !important;
   color: var(--white);
   font-size: 14px;
   font-style: normal;

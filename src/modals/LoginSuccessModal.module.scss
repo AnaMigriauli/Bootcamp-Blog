@@ -3,6 +3,19 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: 24px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  .close-btn:hover {
+    border-radius: 30px;
+    background: var(--light-lavender);
+  }
   .success-title {
     color: var(--charcoal);
     font-size: 20px;
@@ -15,7 +28,7 @@
     width: 100%;
     padding: 10px 20px;
     border-radius: 8px;
-    background: var(--purple);
+    background: var(--purple) !important;
     color: var(--white);
     font-size: 14px;
     font-style: normal;

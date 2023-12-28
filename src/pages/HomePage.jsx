@@ -47,9 +47,10 @@ const HomePage = () => {
   //მომავალში გამოქვეყნების ლოგიკა
   useEffect(() => {
     const filterBlogs = () => {
-      const currentDate = new Date();
+      const currentDate = new Date().toLocaleDateString();
       const filtered = blogs.filter((blog) => {
-        const publishDate = new Date(blog.publish_date);
+        const publishDate = new Date(blog.publish_date).toLocaleDateString();
+
         return publishDate <= currentDate;
       });
       setBlogList(filtered);
@@ -85,6 +86,9 @@ const HomePage = () => {
       }
     };
   }, [blogs]);
+
+  // console.log(blogs);
+  // console.log(blogList);
 
   //Loader
   if (!blogList || blogList.length === 0) {
