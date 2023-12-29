@@ -9,10 +9,11 @@
       if (sessionStorage.redirect) {
         const redirect = sessionStorage.redirect;
         delete sessionStorage.redirect;
-        window.location.replace(redirect);
+        const redirectPath = new URL(redirect).pathname;
+        window.location.replace(redirectPath);
       }
     </script>
-    <script type="module" crossorigin src="/Bootcamp-Blog/assets/index-EcuuFIaE.js"></script>
+    <script type="module" crossorigin src="/Bootcamp-Blog/assets/index-wWsnboCJ.js"></script>
     <link rel="stylesheet" crossorigin href="/Bootcamp-Blog/assets/index-_Dy_FKZg.css">
   </head>
   <body>
