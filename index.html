@@ -7,9 +7,11 @@
     <title>Bootcamp Blog</title>
     <script>
       if (sessionStorage.redirect) {
+        console.log(sessionStorage);
         const redirect = sessionStorage.redirect;
         delete sessionStorage.redirect;
         const redirectPath = new URL(redirect).pathname;
+        console.log(redirectPath);
         window.location.replace(redirectPath);
       }
     </script>
