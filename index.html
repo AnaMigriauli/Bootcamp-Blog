@@ -6,16 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bootcamp Blog</title>
     <script>
-      if (sessionStorage.redirect) {
-        console.log(sessionStorage);
-        const redirect = sessionStorage.redirect;
-        delete sessionStorage.redirect;
-        const redirectPath = new URL(redirect).pathname;
-        console.log(redirectPath);
-        window.location.replace(redirectPath);
-      }
+      (function (l) {
+        if (l.search[1] === "/") {
+          var decoded = l.search
+            .slice(1)
+            .split("&")
+            .map(function (s) {
+              return s.replace(/~and~/g, "&");
+            })
+            .join("?");
+          window.history.replaceState(
+            null,
+            null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      })(window.location);
     </script>
-    <script type="module" crossorigin src="/Bootcamp-Blog/assets/index-wWsnboCJ.js"></script>
+    <script type="module" crossorigin src="/Bootcamp-Blog/assets/index-RXmEc6gR.js"></script>
     <link rel="stylesheet" crossorigin href="/Bootcamp-Blog/assets/index-_Dy_FKZg.css">
   </head>
   <body>
