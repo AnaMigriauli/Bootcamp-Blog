@@ -22,6 +22,13 @@ const BlogCard = ({
   categoryList,
   blogDescription,
 }) => {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
   return (
     <div className={blogCard}>
       <img className={blogCardImage} src={image} alt="image" />
@@ -53,7 +60,11 @@ const BlogCard = ({
         <p className={blogDescription}>{description}</p>
         {id && (
           <div>
-            <Link to={`blog/${id}`} className={styles.link}>
+            <Link
+              onClick={scrollToTop}
+              to={`/blog/${id}`}
+              className={styles.link}
+            >
               სრულად ნახვა <img src={arrow} alt="view more" />
             </Link>
           </div>

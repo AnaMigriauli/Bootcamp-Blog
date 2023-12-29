@@ -3,29 +3,31 @@ import logo from "../../assets/photos/LOGO-02 3.svg";
 import Button from "../common/Button";
 import LoginModal from "../../modals/LoginModal";
 import { useBlog } from "../../hooks/BlogContext";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Header = () => {
-  const { isLoginModalOpen, setIsLoginModalOpen, isSuccess } = useBlog();
+  const {
+    isLoginModalOpen,
+    setIsLoginModalOpen,
+    isSuccess: isSuccessFromContext,
+  } = useBlog();
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
   const isAddBlogPage = currentPath === "/add-blog";
-  // const [localIsSuccess, setLocalIsSuccess] = useState(false);
 
-  // useEffect(() => {
-  //   const savedIsSuccess = localStorage.getItem("isSuccess");
-  //   if (savedIsSuccess !== null) {
-  //     setLocalIsSuccess(JSON.parse(savedIsSuccess));
-  //   }
-  // }, []);
+  const [isSuccess, setIsSuccess] = useState(() => {
+    const savedIsSuccess = localStorage.getItem("isSuccess");
+    console.log(savedIsSuccess);
+    return savedIsSuccess === true ? JSON.parse(savedIsSuccess) : false;
+  });
 
-  // useEffect(() => {
-  //   localStorage.setItem('isSuccess', JSON.stringify(isSuccess));
-  // }, [isSuccess]);
+  useEffect(() => {
+    setIsSuccess(isSuccessFromContext);
+    localStorage.setItem("isSuccess", JSON.stringify(isSuccessFromContext));
+  }, [isSuccessFromContext]);
 
-  // const [isSuccess, setIsSuccess] = useState(false);
   const openModalHandler = () => {
     setIsLoginModalOpen(true);
   };
@@ -33,7 +35,7 @@ const Header = () => {
     navigate("add-blog");
   };
 
-  //no-scroll for Modal
+  // no-scroll for Modal
   useEffect(() => {
     if (isLoginModalOpen) {
       document.body.classList.add("no-scroll");

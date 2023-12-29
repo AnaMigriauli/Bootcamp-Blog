@@ -19,9 +19,7 @@ const Input = ({
   errorTertiary,
   isTextarea,
   isSelect,
-  // primaryValidationStyle,
-  // secondaryValidationStyles,
-  // tertiaryValidationStyles,
+
   mailError,
   value,
   onChange,
@@ -31,10 +29,9 @@ const Input = ({
   error,
 }) => {
   const { categories, setCategories } = useBlog();
-  const [inputValue, setInputValue] = useState(value);
+  // const [inputValue, setInputValue] = useState(value);
   const [touched, setTouched] = useState(false);
   const [focused, setfocused] = useState(false);
-  // const [change, setChange] = useState(false);
 
   const inputClass = errorMessage
     ? ` ${inputStyle} ${styles["input-error"]}`
@@ -43,15 +40,16 @@ const Input = ({
   const onClickHandler = () => {
     if (onClick) onClick();
   };
-  // console.log(touched);
+
   const inputChangeHandler = (e) => {
-    // setChange(true);
     setTouched(true);
-    setInputValue(e.target.value);
+
+    // setInputValue(e.target.value);
     if (onChange) onChange(e);
   };
   const inputBlurHandler = (e) => {
     setTouched(true);
+
     if (onBlur) onBlur(e);
     getInputBorder();
   };
@@ -61,14 +59,6 @@ const Input = ({
     getInputBorder();
   };
   const getInputBorder = () => {
-    // if (!touched && !focused) {
-    //   return styles["default-input-border"];
-    // } else if (error && (touched || change)) {
-    //   return styles["invalid-input-border"];
-    // } else if (inputValue !== "" && !error && touched) {
-    //   return styles["valid-input-border"];
-    // }
-    // return styles["default-input-border"];
     if ((error || errorSecondary || errorTertiary) && touched) {
       return styles["invalid-input-border"];
     }
@@ -117,10 +107,9 @@ const Input = ({
   }, []);
   const getSelectBorder = () => {
     if (error && touched) {
-      return "--bright-red"; // Return the CSS variable name
+      return "--bright-red";
     }
     if (!touched || (touched && !focused && error)) {
-      // console.log('guramchika')
       return "--pale-purple";
     } else {
       return "--green";
@@ -158,14 +147,12 @@ const Input = ({
       ...provided,
       backgroundColor: state.data.background_color,
       color: state.data.text_color,
-      padding: 10,
-      margin: 10,
-      borderRadius: 12,
+      padding: "8px 16px",
+      margin: 4,
+      borderRadius: 30,
       whiteSpace: "wrap",
-
-      display: "inline-block", // Use inline-block for natural content width
-      width: "auto", // Width auto to accommodate content width
-
+      display: "inline-block",
+      width: "auto",
       boxSizing: "border-box",
     }),
 
@@ -174,35 +161,38 @@ const Input = ({
       display: "flex",
       flexWrap: "nowrap",
       overflowX: "scroll",
+      gap: 8,
+      "&::-webkit-scrollbar": {
+        display: "none",
+      },
     }),
     multiValue: (styles, { data }) => {
       return {
-        ...styles,
+        // ...styles,
         display: "flex",
         flexWrap: "no-wrap",
         backgroundColor: data.background_color,
-        color: "white",
-        borderRadius: "8px",
+        padding: "8px 12px",
+        borderRadius: "30px",
         minWidth: "min-content",
         width: "fit-content",
       };
     },
 
-    multiValueLabel: (styles) => ({
+    multiValueLabel: (styles, { data }) => ({
       ...styles,
-      color: "black",
+      color: data.text_color,
     }),
 
-    multiValueRemove: (base) => ({
+    multiValueRemove: (base, { data }) => ({
       ...base,
-      color: "white",
+      color: data.text_color,
       ":hover": {
         color: "black",
-        backgroundColor: "darkpurple",
-        borderRadius: "12px",
       },
     }),
   };
+
   return (
     <>
       <div className={styles["input-wrapper"]}>
@@ -329,10 +319,6 @@ Input.propTypes = {
   onFocus: PropTypes.func,
   error: PropTypes.bool,
   options: PropTypes.array,
-  // isSelect: PropTypes.bool,
-  // value: PropTypes.object,
-  // className: PropTypes.string,
-  // onChange: PropTypes.func.isRequired,
-  // placeholder: PropTypes.string,
+  setTouched: PropTypes.func,
 };
 export default Input;

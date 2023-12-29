@@ -14,7 +14,6 @@ const BlogPage = () => {
   const navigate = useNavigate();
 
   const [blog, setBlog] = useState();
-
   const [sliderIndex, setSliderIndex] = useState(0);
 
   useEffect(() => {
@@ -63,12 +62,10 @@ const BlogPage = () => {
     });
   };
 
-  const visibleCards = filteredRelatedArticles?.slice(
-    sliderIndex,
-    sliderIndex + itemsPerSlide
-  );
+  const visibleCards =
+    filteredRelatedArticles.length &&
+    filteredRelatedArticles?.slice(sliderIndex, sliderIndex + itemsPerSlide);
 
-  // console.log(filteredRelatedArticles);
   return (
     <div className={styles.blog}>
       <div className={styles["blog-card-wrapper"]}>

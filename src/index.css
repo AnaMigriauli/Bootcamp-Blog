@@ -28,15 +28,13 @@
 
 @font-face {
   font-family: "firago";
-  src: url("./assets/fonts/FiraGO-Regular.eot"); /* IE9 Compat Modes */
+  src: url("./assets/fonts/FiraGO-Regular.eot");
   src: url("./assets/fonts/FiraGO-Regular.eot?#iefix")
       format("embedded-opentype"),
-    /* IE6-IE8 */ url("./assets/fonts/FiraGO-Regular.woff2") format("woff2"),
-    /* Super Modern Browsers */ url("./assets/fonts/FiraGO-Regular.woff")
-      format("woff"),
-    /* Pretty Modern Browsers */ url("./assets/fonts/FiraGO-Regular.ttf")
-      format("truetype"),
-    /* Safari, Android, iOS */ url("mycustomfont.svg#svgFontName") format("svg"); /* Legacy iOS */
+    url("./assets/fonts/FiraGO-Regular.woff2") format("woff2"),
+    url("./assets/fonts/FiraGO-Regular.woff") format("woff"),
+    url("./assets/fonts/FiraGO-Regular.ttf") format("truetype"),
+    url("mycustomfont.svg#svgFontName") format("svg");
   font-style: normal;
   font-weight: 400;
 }

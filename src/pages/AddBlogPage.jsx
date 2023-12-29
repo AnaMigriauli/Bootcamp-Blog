@@ -23,6 +23,7 @@ const AddBlogPage = () => {
   const [date, setData] = useState("");
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [email, setEmail] = useState("");
+  const [touched, setTouched] = useState(false);
 
   useEffect(() => {
     const savedData = localStorage.getItem("addBlogData");
@@ -79,10 +80,6 @@ const AddBlogPage = () => {
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles[0]);
     setFileName(acceptedFiles[0].name);
-
-    // const currentData = JSON.parse(localStorage.getItem("addBlogData")) || {};
-    // currentData.fileName = acceptedFiles[0].name;
-    // localStorage.setItem("addBlogData", JSON.stringify(currentData));
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -149,12 +146,10 @@ const AddBlogPage = () => {
       return validationSchema.email.rule.test(value);
     }
 
-    // Define the validation rules
     const minFour = value.length >= input.minLength;
     const minTwoWords = value.trim().split(/\s+/).length >= 2;
     const onlyGeorgian = validationSchema.author.rule.test(value);
 
-    // Aggregate validations
     const validations = {
       minFour,
       minTwoWords,
@@ -163,12 +158,6 @@ const AddBlogPage = () => {
 
     const isValid = Object.values(validations).every(Boolean);
     return { isValid, validations };
-
-    // const validations = {
-    //   minFour: value.length >= input.minLength,
-    //   minTwoWords: input.atLeastTwoWordsRule(value),
-    //   onlyGeorgian: input.rule.test(value)
-    // };
   };
 
   const authorValidation = isValidInput("author", author);
@@ -246,7 +235,6 @@ const AddBlogPage = () => {
     setData("");
     setSelectedCategory([]);
     setEmail("");
-    // setTouched(false);
   };
 
   useEffect(() => {

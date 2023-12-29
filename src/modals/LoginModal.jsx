@@ -20,13 +20,8 @@ const LoginModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [error, setError] = useState(false);
   const validateEmail = async () => {
-    // const emailRegex = /@redberry.ge\s*$/;
-    // if (!emailRegex.test(email)) {
-    //   setEmailError("ელ-ფოსტა არ მოიძებნა");
-    // } else {
-    // setEmailError(" ");
     const token =
-      "b22230c8af120a1eb792677da7fbb4565deca1ab57339c7b1e064c4fcb332e0d";
+      "220c707e00c0a9217b65348e57de71282ecf8a42d49d2b53bd4763d801a6b678";
 
     const response = await fetch(
       "https://api.blog.redberryinternship.ge/api/login",
@@ -39,8 +34,6 @@ const LoginModal = () => {
         body: JSON.stringify({ email }),
       }
     );
-
-    console.log(response);
     if (response.ok) {
       if (response.status !== 204) {
         setEmailError("ელ-ფოსტა არ მოიძებნა");
@@ -65,7 +58,6 @@ const LoginModal = () => {
 
   const loginHandler = () => {
     validateEmail();
-    // setTouched(false);
   };
   const keyPressHandler = (e) => {
     if (e.key === "Enter") {
@@ -76,12 +68,6 @@ const LoginModal = () => {
   const modalCloseHandler = () => {
     setIsModalOpen(false);
     setIsLoginModalOpen(false);
-  };
-
-  const isValid = () => {
-    if (!value || (typeof value === "string" && !value.trim())) {
-      return !input.required;
-    }
   };
 
   return (
