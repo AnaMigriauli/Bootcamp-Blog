@@ -333,7 +333,7 @@ const AddBlogPage = () => {
             />
             <Input
               type="text"
-              lable="სათური *"
+              lable="სათაური *"
               value={title}
               placeholder="შეიყვნეთ სათაური"
               labelStyle={styles["label"]}

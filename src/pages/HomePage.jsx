@@ -87,9 +87,6 @@ const HomePage = () => {
     };
   }, [blogs]);
 
-  // console.log(blogs);
-  // console.log(blogList);
-
   //Loader
   if (!blogList || blogList.length === 0) {
     return <div className={styles.loader}>Loading...</div>;

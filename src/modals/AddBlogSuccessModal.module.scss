@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  font-family: "firago";
   .close-btn {
     position: absolute;
     top: 20px;
@@ -23,6 +24,7 @@
     font-weight: 700;
     line-height: 28px;
     margin: 16px 0 48px 0;
+    font-family: "firago";
   }
   .success-btn {
     width: 100%;
@@ -36,5 +38,6 @@
     line-height: 20px;
     border: none;
     cursor: pointer;
+    font-family: "firago";
   }
 }

@@ -19,6 +19,7 @@ const LoginModal = () => {
     setTouched,
   } = useBlog();
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const [error, setError] = useState(false);
   const validateEmail = async () => {
     // const emailRegex = /@redberry.ge\s*$/;
     // if (!emailRegex.test(email)) {
@@ -44,14 +45,23 @@ const LoginModal = () => {
     if (response.ok) {
       if (response.status !== 204) {
         setEmailError("ელ-ფოსტა არ მოიძებნა");
+        setError(true);
       } else {
         setEmailError("");
         setLoginSuccess(true);
+        setError(false);
       }
     }
   };
   const emailChangeHandler = (e) => {
     setEmail(e.target.value);
+
+    if (
+      !e.target.value ||
+      (typeof e.target.value === "string" && !e.target.value.trim())
+    ) {
+      return false;
+    }
   };
 
   const loginHandler = () => {
@@ -67,6 +77,12 @@ const LoginModal = () => {
   const modalCloseHandler = () => {
     setIsModalOpen(false);
     setIsLoginModalOpen(false);
+  };
+
+  const isValid = () => {
+    if (!value || (typeof value === "string" && !value.trim())) {
+      return !input.required;
+    }
   };
 
   return (
@@ -85,6 +101,7 @@ const LoginModal = () => {
             inputStyle={styles.input}
             onChange={emailChangeHandler}
             errorMessage={emailError}
+            error={emailError ? error : undefined}
             onKeyPress={keyPressHandler}
           />
           <Button onClick={loginHandler} className={styles["modal-btn"]}>

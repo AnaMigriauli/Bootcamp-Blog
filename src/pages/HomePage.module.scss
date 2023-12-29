@@ -1,6 +1,7 @@
 .home-page {
   padding: 64px 76px 66px 76px;
   background: var(--soft-lilac);
+  font-family: "firago";
   .hero-section {
     display: flex;
     justify-content: space-between;
@@ -16,6 +17,7 @@
   }
   .main-content {
     margin-top: 64px;
+    font-family: "firago";
     .category-list {
       display: flex;
       align-items: flex-start;
@@ -32,6 +34,7 @@
         border-radius: 30px;
         background: rgba(255, 184, 47, 0.08);
         .category-btn {
+          font-family: "firago";
           border: none;
           background: transparent;
           cursor: pointer;
@@ -45,6 +48,7 @@
       column-gap: 32px;
       row-gap: 56px;
       margin-top: 64px;
+      font-family: "firago";
 
       .blog-card {
         width: 408px;
@@ -77,9 +81,10 @@
           }
           .blog-title {
             color: var(--charcoal);
+            font-family: "firago";
             font-size: 20px;
             font-style: normal;
-            font-weight: 500;
+            font-weight: 700;
             line-height: 28px;
             height: 53px;
             display: -webkit-box;
@@ -107,6 +112,7 @@
             }
           }
           .blog-description {
+            font-family: "firago";
             color: var(--navy-gray);
             font-size: 16px;
             font-style: normal;
