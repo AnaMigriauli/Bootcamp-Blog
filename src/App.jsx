@@ -5,11 +5,8 @@ import AddBlogPage from "./pages/AddBlogPage";
 import Layout from "./components/layout/Layout";
 import BlogPage from "./pages/BlogPage";
 import { BlogProvider } from "./hooks/BlogContext";
-// import { useEffect } from "react";
 
 function App() {
-  // const navigate = useNavigate();
-
   return (
     <BlogProvider>
       <Router basename="/Bootcamp-Blog">

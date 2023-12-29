@@ -13,7 +13,6 @@ export const apiRequest = async (
   let fetchOptions = { method, headers };
   if (method !== "GET" && body) {
     if (!(body instanceof FormData)) {
-      console.log("foramdata");
       headers.append("Content-Type", "application/json");
       fetchOptions.body = JSON.stringify(body);
     } else {
@@ -21,6 +20,7 @@ export const apiRequest = async (
     }
   }
 
+  console.log(url, fetchOptions);
   try {
     const response = await fetch(url, fetchOptions);
 

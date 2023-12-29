@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Select from "react-select";
 import PropTypes from "prop-types";
 import { useBlog } from "../../hooks/BlogContext";
+import { fetchCategories } from "../../api/api";
 const Input = ({
   lable,
   placeholder,
@@ -83,16 +84,8 @@ const Input = ({
   };
 
   useEffect(() => {
-    const token =
-      "b22230c8af120a1eb792677da7fbb4565deca1ab57339c7b1e064c4fcb332e0d";
-    fetch("https://api.blog.redberryinternship.ge/api/categories", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
+    fetchCategories()
+      .then((response) => response)
       .then((data) =>
         setCategories(
           data.data.map((category) => ({
@@ -105,6 +98,7 @@ const Input = ({
         )
       );
   }, []);
+
   const getSelectBorder = () => {
     if (error && touched) {
       return "--bright-red";

@@ -19,10 +19,10 @@ const LoginModal = () => {
   } = useBlog();
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [error, setError] = useState(false);
+
   const validateEmail = async () => {
     const token =
       "220c707e00c0a9217b65348e57de71282ecf8a42d49d2b53bd4763d801a6b678";
-
     const response = await fetch(
       "https://api.blog.redberryinternship.ge/api/login",
       {
