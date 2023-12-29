@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bootcamp Blog</title>
     <script>
-      sessionStorage.redirect = location.href;
+      if (sessionStorage.redirect) {
+        const redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        window.location.replace(redirect);
+      }
     </script>
-    <meta http-equiv="refresh" content="0;URL='/'" />
-    <script type="module" crossorigin src="/Bootcamp-Blog/assets/index-S442Sot_.js"></script>
+    <script type="module" crossorigin src="/Bootcamp-Blog/assets/index-Xf33yrur.js"></script>
     <link rel="stylesheet" crossorigin href="/Bootcamp-Blog/assets/index-_Dy_FKZg.css">
   </head>
   <body>
