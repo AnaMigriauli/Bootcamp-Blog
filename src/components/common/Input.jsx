@@ -43,7 +43,7 @@ const Input = ({
   const onClickHandler = () => {
     if (onClick) onClick();
   };
-  console.log(touched);
+  // console.log(touched);
   const inputChangeHandler = (e) => {
     // setChange(true);
     setTouched(true);

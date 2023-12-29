@@ -30,7 +30,7 @@ const Header = () => {
     setIsLoginModalOpen(true);
   };
   const openAddBlogHandler = () => {
-    navigate("/add-blog");
+    navigate("add-blog");
   };
 
   //no-scroll for Modal

@@ -53,7 +53,7 @@ const BlogCard = ({
         <p className={blogDescription}>{description}</p>
         {id && (
           <div>
-            <Link to={`/blog/${id}`} className={styles.link}>
+            <Link to={`blog/${id}`} className={styles.link}>
               სრულად ნახვა <img src={arrow} alt="view more" />
             </Link>
           </div>

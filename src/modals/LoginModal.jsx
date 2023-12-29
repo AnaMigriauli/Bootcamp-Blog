@@ -16,7 +16,6 @@ const LoginModal = () => {
     emailError,
     loginSuccess,
     setIsLoginModalOpen,
-    setTouched,
   } = useBlog();
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [error, setError] = useState(false);
